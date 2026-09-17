@@ -1,4 +1,5 @@
-<img width="1445" height="1020" alt="KOHLER Enterprise Intelligence Agent Architecture" src="https://github.com/user-attachments/assets/58a3bf37-edba-4535-b8d2-edd45536f4a2" /># KOHLER Enterprise Intelligence Agent: Technical Report
+
+# KOHLER Enterprise Intelligence Agent: Technical Report
 ### Track 3: Unified Enterprise Conversational AI Agent Prototype
 **KOHLER-MITWPU AI Research Lab Case Study**
 
