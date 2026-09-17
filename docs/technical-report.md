@@ -1,18 +1,17 @@
 # KOHLER Enterprise Intelligence Agent: Technical Report
 ### Track 3: Unified Enterprise Conversational AI Agent Prototype
 **KOHLER-MITWPU AI Research Lab Case Study**
-*Author: Engineering Team | Current User Profile: Lightning McQueen (EMPLOYEE)*
 
 ---
 
 ## 1. Executive Summary & Objective
 
-In modern multinational manufacturing and industrial enterprises like KOHLER Co., corporate governance, human resources, financial guidelines, warranty obligations, and data compliance standards are dispersed across fragmented document repositories and department-specific intranets. When an employee or manager needs to make an informed operational decision—such as procuring an external IoT cloud service or booking overseas travel—they must manually locate, reconcile, and synthesize policies from up to five disparate administrative divisions.
+In modern multinational manufacturing and industrial enterprises like KOHLER Co., corporate governance, human resources, financial guidelines, warranty obligations, and data compliance standards are dispersed across fragmented document repositories and department-specific intranets. When an employee or manager needs to make an informed operational decision such as procuring an external IoT cloud service or booking overseas travel they must manually locate, reconcile, and synthesize policies from up to five disparate administrative divisions.
 
 This manual process introduces three severe enterprise risks:
 1. **Compliance Drift & Violations**: Users often reference outdated or superseded PDF files stored locally on their laptops (e.g., adhering to a 2024 per diem rate rather than a 2026 revision).
 2. **Access Control Leaks**: Traditional vector search RAG systems indiscriminately index all corporate documents, relying on prompt-level instructions to "not share confidential info," which is vulnerable to prompt injection and jailbreaking.
-3. **Cross-Domain Siloing**: Complex real-world decisions (such as sending smart-home telemetry data to a third-party vendor) require cross-referencing Privacy, Legal, and Warranty policies simultaneously—a task where single-domain search engines fail.
+3. **Cross-Domain Siloing**: Complex real-world decisions (such as sending smart-home telemetry data to a third-party vendor) require cross-referencing Privacy, Legal, and Warranty policies simultaneously a task where single-domain search engines fail.
 
 The **KOHLER Enterprise Intelligence Agent** resolves these challenges by introducing a unified, permission-aware, evidence-grounded agentic architecture capable of answering multi-domain questions with deterministic security gates, automated conflict resolution, and dynamic multi-format output generation.
 
