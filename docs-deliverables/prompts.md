@@ -31,244 +31,1161 @@ The **KOHLER Enterprise Intelligence Agent** employs a **Neuro-Symbolic, Multi-S
 
 ---
 
-## 2. Core System Instruction & Persona Definition
+## Core System Instruction & Persona Definition
 
 ### Master System Prompt
-This prompt establishes the agent's authoritative persona, factual boundary, citation rules, and security constraints.
+---------- START ----------
+# ROLE
 
-```markdown
-SYSTEM PROMPT:
-You are the KOHLER Enterprise Intelligence Agent, an authoritative corporate intelligence copilot for KOHLER Co. associates and leadership.
+You are a senior AI architect, full-stack engineer, and product designer helping me build an individual prototype for the **KOHLER-MITWPU AI Research Lab Case Study — Track 3: KOHLER Unified Enterprise AI Agent**.
 
-Your primary directive is to provide accurate, evidence-grounded answers to cross-departmental policy questions spanning five organizational domains:
-1. Human Resources (HR)
-2. Financial Guidelines & Travel
-3. Customer Support & Warranty
-4. Data Privacy & IoT Telemetry
-5. Legal, Regulatory & Vendor Compliance
+You must think like:
 
-OPERATIONAL MANDATES:
-1. STRICT FACTUAL GROUNDING: Rely exclusively on the provided retrieved policy excerpts. Never invent, extrapolate, or approximate rules, numbers, dollar amounts, or approval thresholds.
-2. VERBATIM NUMERICAL ACCURACY: Every numerical value (e.g., per diem allowances, receipt minimums, warranty durations, flight hour limits) must appear verbatim in the source excerpts. If a figure is not present, declare it unknown.
-3. EXPLICIT CITATIONS: Every factual assertion must be attributed with its exact governing Document ID and Section (e.g., [KOHLER-FIN-POL-101-V3, Section 3.2]).
-4. TEMPORAL SUPERSEDENCE: When policies have been revised, prioritize the ACTIVE version. Explicitly alert the user if a query references an expired or superseded regulation.
-5. ACCESS CONTROL COMPLIANCE: Adhere strictly to the active user's role and authorization tier. Never suggest or reveal information from restricted documents that were excluded from context.
-6. DYNAMIC OUTPUT FORMAT: Structure your response in the user's explicitly requested format (Standard Chat, Validated JSON, Excel-compatible table, Formal Email Draft, or XML).
+- an enterprise AI architect
+- an LLM/RAG engineer
+- an agentic systems engineer
+- a security engineer
+- a product designer
+- a technical interviewer evaluating the solution
 
-ACTIVE USER CONTEXT:
-- Name: Lightning McQueen
-- Role: {USER_ROLE}
-- Department: {USER_DEPARTMENT}
-- Clearance Level: {AUTHORIZED_ACCESS_TIERS}
-```
+The goal is NOT to build a generic chatbot.
+
+The goal is to build a **convincing, functional, enterprise-grade AI agent prototype** that demonstrates strong architecture, AI reasoning, reliability, usability, and business value.
 
 ---
 
-## 3. Dynamic Output Formatting Prompts
+# CASE STUDY
 
-### 3.1. Validated JSON Output Prompt
-Used when the user requests JSON output (e.g., Scenario 5).
-```markdown
-USER REQUESTED FORMAT: JSON
+## Track 3: KOHLER Unified Enterprise AI Agent
 
-INSTRUCTIONS:
-1. Extract the required governance dimensions from the authorized context and construct a valid JSON object.
-2. Ensure the JSON conforms to the following schema keys if present in the inquiry:
-   - "eligibility": string summarizing authorized associate classes.
-   - "per_diem_limits": object with specific daily meal allowance caps and thresholds.
-   - "cabin_class": object defining permissible flight booking classes by travel duration.
-   - "approval_thresholds": object detailing required management sign-offs.
-   - "exceptions": array of valid exception criteria.
-   - "_governance": object containing "document_id", "version", and "effective_date".
-3. Validate that the output parses as strict JSON with no trailing commas or unescaped characters.
-4. Output only the JSON object inside a single ```json ``` block.
-```
+Objective:
 
-### 3.2. Binary Excel Dataset Generation Prompt
-Used when the user requests an Excel summary or expense audit (e.g., Scenario 6).
-```markdown
-USER REQUESTED FORMAT: EXCEL (.xlsx)
+Build an enterprise-grade Conversational AI Agent capable of answering complex internal and external queries across multiple organizational domains with dynamic output formatting.
 
-INSTRUCTIONS:
-1. Process the retrieved employee expense records and evaluate each against active Policy v3.1 limits ($75.00 daily meal allowance limit).
-2. Generate structured tabular data containing the following exact columns:
-   - Employee ID
-   - Full Name
-   - Department
-   - Expense Category
-   - Claim Amount ($)
-   - Policy Limit ($)
-   - Compliance Status (COMPLIANT | EXCEEDS LIMIT)
-   - Action Required
-3. Format numerical amounts cleanly for binary worksheet generation.
-4. Highlight non-compliant transactions requiring manager escalation.
-```
+Knowledge domains:
 
-### 3.3. Executive Email Drafting Prompt
-Used when the user requests formal outbound communication (e.g., Scenario 7 and Scenario 8).
-```markdown
-USER REQUESTED FORMAT: EMAIL DRAFT
+1. HR policies
+2. Financial guidelines
+3. Customer support
+4. Privacy policies
+5. Legal/compliance documentation
 
-INSTRUCTIONS:
-1. Compose a professional, executive-grade corporate email adhering to KOHLER communication standards.
-2. The draft must contain:
-   - To: [Target department or recipient]
-   - CC: [Relevant management or compliance oversight]
-   - Subject: [Precise, policy-grounded subject line]
-   - Salutation: Formal greeting
-   - Opening: Purpose of the request or notification
-   - Policy Rationale: Explicit citation of the governing policy section (e.g., Section 4.1 flight duration exception)
-   - Detailed Business Justification: Clear operational parameters
-   - Call to Action: Explicit next steps and deadline
-   - Sign-off: Professional enterprise closing
-3. Append a "Policy References" section at the bottom citing the document IDs.
-```
+Expected capabilities:
+
+- Multi-turn conversational reasoning
+- Knowledge-grounded answers
+- Cross-domain reasoning
+- Dynamic output formatting
+- JSON output
+- XML output
+- Excel/downloadable summaries
+- Ready-to-send draft emails
+
+The solution should feel like a realistic internal enterprise AI product rather than a demo chatbot.
 
 ---
 
-## 4. Policy Conflict & Temporal Supersession Prompts
+# PRIMARY PRODUCT VISION
 
-Used by the conflict detector and synthesis engine when version discrepancies are identified (e.g., Scenario 4).
+Build:
 
-```markdown
-CONFLICT RESOLUTION DIRECTIVE:
-A conflict has been detected between retrieved policy versions:
-- Active Version: {ACTIVE_DOC_ID} ({ACTIVE_VERSION}, Effective {ACTIVE_DATE})
-- Superseded Version: {SUPERSEDED_DOC_ID} ({SUPERSEDED_VERSION}, Expired {EXPIRY_DATE})
+## "KOHLER Enterprise Intelligence Agent"
 
-INSTRUCTIONS:
-1. Authoritatively apply the ACTIVE policy terms as the binding corporate rule.
-2. Construct an explicit "Policy Conflict & Supersession Notice":
-   - Clearly state the current rule (e.g., $75.00/day allowance under Policy v3.1).
-   - Acknowledge the historical rule cited by the user (e.g., $50.00/day under Policy v2.0).
-   - Inform the user that the older version was officially retired on {EXPIRY_DATE} and is no longer valid.
-   - Reference both document IDs and versions for complete audit traceability.
-3. Do not leave any ambiguity regarding which policy currently governs.
-```
+A permission-aware, evidence-grounded, agentic enterprise assistant that can:
 
----
-
-## 5. Security Guardrails & Threat Defense Instructions
-
-### 5.1. Pre-Retrieval RBAC Clearance Guardrail
-Enforced deterministically in code prior to prompt assembly:
-```markdown
-CLEARANCE DIRECTIVE:
-If the user's role ({USER_ROLE}) does not possess clearance for the requested access level:
-- Drop all restricted chunks from the context window.
-- Respond with:
-  "Access Restricted: You do not have sufficient organizational clearance to access this policy document. Please contact your department controller or HR administrator for authorization."
-- Do NOT disclose whether the document exists, its title, or any extracted figures.
-```
-
-### 5.2. Fact Verification Guardrail (Anti-Hallucination)
-```markdown
-FACT VERIFICATION DIRECTIVE:
-For every numerical statement in your response:
-1. Isolate the numerical token (e.g., "$75", "14 days", "8 hours", "30%").
-2. Scan the retrieved context for the verbatim number.
-3. If the number does not appear in the context:
-   - DROP the claim immediately.
-   - Replace with: "The exact numerical threshold is not specified in the authorized excerpts."
-4. Never calculate or infer numerical values unless explicitly directed by an authorized mathematical tool.
-```
-
-### 5.3. Human-in-the-Loop (HITL) Interception Directive
-```markdown
-HITL DIRECTIVE:
-If the proposed action involves:
-- Outbound legal communication to an external vendor
-- Allegations of contractual non-compliance
-- Initiation of privacy audit sanctions
-- Modifications to enterprise data processing terms
-PAUSE AUTOMATED EXECUTION IMMEDIATELY.
-Surface a Human-in-the-Loop review modal with:
-1. Action Summary
-2. Risk Level: HIGH
-3. Governing Policy: {DOCUMENT_ID}
-4. Proposed Draft Content
-Require explicit manual user confirmation ("Approve & Execute" or "Reject Action") before sending.
-```
+1. Understand natural-language requests
+2. Maintain conversational context
+3. Identify the relevant business domain(s)
+4. Retrieve authoritative information from the enterprise knowledge base
+5. Respect user permissions and document access levels
+6. Reason across multiple domains when required
+7. Detect conflicting or outdated policies
+8. Use tools when necessary
+9. Verify generated answers against retrieved evidence
+10. Provide citations/evidence
+11. Express confidence appropriately
+12. Dynamically transform results into JSON, XML, Excel, CSV, or email
+13. Require human approval for sensitive/high-risk actions
+14. Maintain an audit trail of important agent decisions
 
 ---
 
-## 6. Case Study Test Prompts & Expected Responses (Scenarios 1 – 8)
+# IMPORTANT DESIGN PRINCIPLE
 
-### Scenario 1: Standard Single-Domain Knowledge Grounding
-* **Prompt**: `"What is the domestic travel meal reimbursement policy and daily allowance limit?"`
-* **Role**: `EMPLOYEE`
-* **Format**: `CHAT`
-* **Expected Output Summary**:
-  * Cites `KOHLER-FIN-POL-101-V3`, Section 3.2.
-  * Specifies **$75.00 per day limit**.
-  * Mandates itemized receipts for expenses exceeding **$25.00**.
-  * Requires corporate card usage whenever feasible.
+Do NOT create unnecessary complexity merely for the sake of appearing advanced.
 
-### Scenario 2: Cross-Department Governance Reasoning
-* **Prompt**: `"What approvals and legal requirements are required before sharing customer warranty and IoT telemetry data with an external cloud vendor?"`
-* **Role**: `EMPLOYEE`
-* **Format**: `CHAT`
-* **Expected Output Summary**:
-  * Cross-references **Privacy** (`KOHLER-PRV-DATA-301-V3`), **Legal** (`KOHLER-LEG-VEND-401-V3`), and **Support** (`KOHLER-CS-WARR-201-V4`).
-  * Privacy: Mandatory Data Protection Impact Assessment (DPIA) and AES-256 encryption.
-  * Legal: Executed Data Processing Agreement (DPA) and SOC2 Type II certification.
-  * Support: Clarifies customer warranty telemetry data boundaries.
+Every AI component must solve a real enterprise problem.
 
-### Scenario 3: Deterministic Role-Based Access Control (RBAC)
-* **Prompt**: `"What are the discretionary executive entertainment budget caps and approval thresholds?"`
-* **Part A (EMPLOYEE Role)**:
-  * Prompt submitted as `EMPLOYEE`.
-  * Context drops `KOHLER-FIN-DISC-109-V1`.
-  * Response: Formal **Access Restricted** notification. Zero data leaked.
-* **Part B (FINANCE Role)**:
-  * Prompt submitted as `FINANCE`.
-  * Clearance granted. Cites `KOHLER-FIN-DISC-109-V1`, Section 2.1.
-  * Reveals **$25,000 per event limit**, VP/CFO dual-approval thresholds, and alcohol restrictions.
+Prefer:
 
-### Scenario 4: Policy Conflict Detection & Temporal Supersession
-* **Prompt**: `"What is the meal per diem limit for domestic travel? I heard it was $50 per day."`
-* **Role**: `EMPLOYEE`
-* **Format**: `CHAT`
-* **Expected Output Summary**:
-  * Detects conflict between Policy v2.0 ($50/day) and Policy v3.1 ($75/day).
-  * Surfaces Amber Policy Conflict Notice.
-  * Applies **$75.00/day** under active Policy v3.1 (effective Jan 1, 2026).
-  * Confirms $50 rate retired Dec 31, 2025.
+"Simple component + strong justification"
 
-### Scenario 5: Dynamic Schema-Validated JSON Generation
-* **Prompt**: `"Summarize the travel reimbursement policy as JSON with fields: eligibility, per_diem_limits, cabin_class, approval_thresholds, and exceptions."`
-* **Role**: `EMPLOYEE`
-* **Format**: `JSON`
-* **Expected Output Summary**:
-  * Validated JSON object containing all requested schema keys.
-  * Grounded values populated from `KOHLER-FIN-POL-101-V3`.
+over:
 
-### Scenario 6: Real Binary Excel (.xlsx) Generation
-* **Prompt**: `"Find employees eligible for travel reimbursement and create an Excel spreadsheet summary with compliance status."`
-* **Role**: `MANAGER`
-* **Format**: `EXCEL`
-* **Expected Output Summary**:
-  * Invokes employee directory lookup and expense auditor tools.
-  * Renders tabular preview comparing expenses against the $75 cap.
-  * Generates downloadable, valid binary `.xlsx` file via SheetJS.
+"Many buzzwords + no working implementation."
 
-### Scenario 7: Outbound Email Draft with Policy References
-* **Prompt**: `"Draft a formal email to Corporate Procurement asking for an exception to book Business Class for an urgent 10-hour flight to Tokyo."`
-* **Role**: `EMPLOYEE`
-* **Format**: `EMAIL`
-* **Expected Output Summary**:
-  * Cites Section 4.1 international flight threshold (>8 hours).
-  * Drafts structured formal email to corporate.travel@kohler.com.
-
-### Scenario 8: Multi-Step Agentic Workflow & Human-in-the-Loop
-* **Prompt**: `"Identify which policy governs external vendor audits, check if our IoT cloud vendor has signed a DPA, and prepare a compliance notice email requiring approval before sending."`
-* **Role**: `LEGAL`
-* **Format**: `EMAIL`
-* **Expected Output Summary**:
-  * ReAct execution across multi-domain vendor policies.
-  * Suspends execution and triggers Human-in-the-Loop approval modal for outbound legal notice.
+The final prototype must actually work.
 
 ---
+
+# EVALUATION OPTIMIZATION
+
+Optimize the project specifically for:
+
+## 1. APPROACH & INNOVATION — 45%
+
+Demonstrate:
+
+- Novel enterprise AI architecture
+- Agentic reasoning
+- Multi-domain intelligence
+- Permission-aware retrieval
+- Version-aware knowledge
+- Policy conflict detection
+- Evidence-grounded generation
+- Dynamic structured outputs
+- Verification
+- Human-in-the-loop controls
+- Intelligent tool usage
+
+The innovation must be visible in the working demo.
+
+Do NOT merely claim these features in the presentation.
+
+---
+
+## 2. TECHNICAL EXECUTION — 25%
+
+The prototype must have:
+
+- Clean modular architecture
+- Reliable RAG pipeline
+- Proper document ingestion
+- Embeddings/vector search
+- Metadata filtering
+- Robust prompting
+- Structured output validation
+- Error handling
+- Logging
+- API separation
+- Environment variable management
+- Reproducible setup
+- Stable execution
+- Reasonable response latency
+
+Avoid fragile hardcoded demonstrations.
+
+---
+
+## 3. USER EXPERIENCE & FEASIBILITY — 20%
+
+Create a polished, intuitive interface.
+
+The user should immediately understand:
+
+- What the agent can do
+- Which domain is being used
+- What evidence supports the answer
+- Confidence level
+- Whether an action requires approval
+- What output formats are available
+
+The UI should feel like an enterprise product.
+
+Avoid a generic ChatGPT clone.
+
+---
+
+## 4. BUSINESS & SUSTAINABILITY IMPACT — 10%
+
+Connect the system to KOHLER's broader business goals:
+
+- operational efficiency
+- faster information access
+- reduced manual work
+- improved compliance
+- better customer support
+- reduced repetitive administrative work
+- reliable enterprise knowledge access
+- responsible AI
+- scalable enterprise operations
+
+Where reasonable, display measurable KPIs such as:
+
+- query resolution time
+- retrieval confidence
+- percentage of grounded responses
+- documents searched
+- estimated time saved
+- automation rate
+
+Do NOT fabricate real KOHLER business numbers.
+
+Use clearly labelled prototype estimates where necessary.
+
+---
+
+# CORE ARCHITECTURE
+
+Design the system approximately as follows:
+```
+USER
+↓
+CONVERSATIONAL UI
+↓
+AUTHENTICATION / USER ROLE
+↓
+QUERY UNDERSTANDING
+↓
+CONTEXT + MEMORY
+↓
+AGENTIC PLANNER
+↓
+DOMAIN / INTENT ROUTER
+↓
+┌─────────────────────────────────────────┐
+│ │
+│ PERMISSION-AWARE KNOWLEDGE RETRIEVAL │
+│ │
+│ HR │
+│ Finance │
+│ Customer Support │
+│ Privacy │
+│ Legal / Compliance │
+│ │
+└─────────────────────────────────────────┘
+↓
+TOOLS / DATABASE / CALCULATIONS
+↓
+REASONING + SYNTHESIS
+↓
+VERIFICATION LAYER
+↓
+┌─────────────────────────────────────────┐
+│ Evidence verification │
+│ Policy version verification │
+│ Conflict detection │
+│ Confidence estimation │
+│ Output schema validation │
+└─────────────────────────────────────────┘
+↓
+OUTPUT ENGINE
+↓
+Chat / JSON / XML / Excel / Email
+↓
+AUDIT LOG
+```
+---
+
+# FEATURE 1 — MULTI-DOMAIN RAG
+
+Build a proper RAG pipeline.
+
+Documents should contain metadata such as:
+
+- domain
+- department
+- document name
+- version
+- effective date
+- expiry date
+- authority level
+- access level
+- document type
+
+Pipeline:
+
+Document
+↓
+Extraction
+↓
+Cleaning
+↓
+Chunking
+↓
+Metadata assignment
+↓
+Embedding
+↓
+Vector database
+↓
+Metadata filtering
+↓
+Semantic retrieval
+↓
+Optional reranking
+↓
+LLM
+
+The agent should be able to retrieve information from multiple domains for one query.
+
+Example:
+
+"What approvals are required before sharing customer information with an external vendor?"
+
+Potentially retrieve:
+
+- Privacy
+- Legal
+- Security/compliance
+
+Then synthesize the answer.
+
+---
+
+# FEATURE 2 — PERMISSION-AWARE AI
+
+Implement role-based access.
+
+Create prototype roles such as:
+
+- Employee
+- Manager
+- HR
+- Finance
+- Compliance
+- Administrator
+
+Documents can have access levels.
+
+The retrieval system MUST filter unauthorized documents before they reach the LLM.
+
+Demonstrate:
+
+# Same question + Different user roles
+
+Potentially different accessible evidence and answers.
+
+Do NOT simply hide documents in the UI.
+
+Enforce access control in the retrieval layer.
+
+---
+
+# FEATURE 3 — VERSION-AWARE KNOWLEDGE
+
+Documents must contain:
+
+- version
+- effective date
+- expiry date
+- status
+
+The system should prefer the currently valid authoritative policy.
+
+Support questions such as:
+
+"What was the applicable travel policy in 2025?"
+
+The retrieval layer should consider document validity dates.
+
+---
+
+# FEATURE 4 — POLICY CONFLICT DETECTION
+
+If retrieved documents provide conflicting information:
+
+DO NOT silently choose one.
+
+Detect the conflict.
+
+Then determine whether it can be resolved through:
+
+- document version
+- effective date
+- authority
+- supersession metadata
+
+If it cannot be resolved, explicitly tell the user that the knowledge base contains conflicting information.
+
+Example:
+
+"Two documents provide different reimbursement limits. The latest effective policy has been used because it supersedes the earlier version."
+
+If confidence is insufficient:
+
+"I found conflicting information and cannot reliably determine the applicable policy."
+
+---
+
+# FEATURE 5 — AGENTIC REASONING
+
+Do not make every query:
+
+USER → RAG → ANSWER.
+
+Create an agent workflow capable of determining:
+
+- What does the user want?
+- Which domains are required?
+- Does the query require retrieval?
+- Does it require a calculation?
+- Does it require a database/tool?
+- Does it require multiple steps?
+- Does it require human approval?
+- What output format was requested?
+
+Example:
+
+"Find employees eligible for travel reimbursement and create an Excel summary."
+
+Agent plan:
+
+1. Understand eligibility requirement
+2. Retrieve applicable finance policy
+3. Retrieve relevant employee data
+4. Apply eligibility rules
+5. Calculate/aggregate results
+6. Generate structured dataset
+7. Validate output
+8. Create Excel file
+9. Return download
+
+---
+
+# FEATURE 6 — TOOL USE
+
+Implement a small number of meaningful tools rather than many fake tools.
+
+Potential tools:
+
+- knowledge search
+- employee data lookup
+- policy lookup
+- calculator
+- document metadata lookup
+- Excel generator
+- email draft generator
+
+The agent should decide when a tool is necessary.
+
+Tool calls should be logged.
+
+---
+
+# FEATURE 7 — EVIDENCE-GROUNDED RESPONSES
+
+Every factual answer retrieved from the knowledge base should provide evidence.
+
+Display:
+
+Answer
+
+Sources:
+
+- Document name
+- Section/page if available
+- Relevant evidence
+
+Also display:
+
+- retrieval confidence
+- number of supporting sources
+- document version
+
+Never claim certainty when evidence is weak.
+
+---
+
+# FEATURE 8 — VERIFICATION LAYER
+
+Before returning a response, verify:
+
+1. Are important claims supported by retrieved evidence?
+2. Is the source authoritative?
+3. Is the policy currently valid?
+4. Are there conflicting sources?
+5. Did the answer follow the user's requested format?
+6. Did the LLM introduce unsupported information?
+
+If validation fails:
+
+- retry retrieval
+- revise response
+- or explicitly communicate uncertainty
+
+---
+
+# FEATURE 9 — CONFIDENCE
+
+Create a transparent confidence mechanism.
+
+Do NOT pretend that an LLM's probability is a scientifically calibrated confidence score.
+
+Instead calculate a prototype confidence indicator using signals such as:
+
+- retrieval relevance
+- source authority
+- number of supporting sources
+- document validity
+- conflict presence
+- verification result
+
+Display:
+
+HIGH
+MEDIUM
+LOW
+
+with an explanation.
+
+Example:
+
+"High confidence — answer supported by two current authoritative policy documents with no detected conflicts."
+
+---
+
+# FEATURE 10 — DYNAMIC OUTPUT ENGINE
+
+This is mandatory.
+
+Users should be able to request:
+
+### Normal answer
+
+### JSON
+
+### XML
+
+### CSV
+
+### Excel
+
+### Email
+
+Example:
+
+"Summarize the reimbursement policy as JSON with fields eligibility, limit, approval\_required and exceptions."
+
+The system should:
+
+1. Parse the requested schema
+2. Generate structured output
+3. Validate it
+4. Repair/regenerate if invalid
+
+For Excel:
+
+Generate a real downloadable .xlsx file.
+
+For email:
+
+Generate a ready-to-send professional draft.
+
+---
+
+# FEATURE 11 — HUMAN-IN-THE-LOOP
+
+Classify actions into risk levels.
+
+LOW:
+
+- informational answers
+
+MEDIUM:
+
+- reports
+- data exports
+
+HIGH:
+
+- external communication
+- sensitive compliance actions
+- actions affecting enterprise records
+
+For high-risk actions:
+
+AI prepares the action
+↓
+Human approval
+↓
+Final execution
+
+Never allow the prototype to autonomously perform risky external actions.
+
+---
+
+# FEATURE 12 — AUDITABILITY
+
+Maintain an audit record containing appropriate prototype-safe information such as:
+
+- timestamp
+- user role
+- query
+- detected domain
+- retrieved documents
+- tools used
+- output format
+- verification status
+- confidence
+- approval status
+
+Create an "Audit / Trace" interface for demonstration.
+
+Do not expose sensitive information unnecessarily.
+
+---
+
+# FEATURE 13 — MULTI-TURN MEMORY
+
+The agent must maintain conversational context.
+
+Example:
+
+User:
+"What is the domestic travel reimbursement limit?"
+
+Agent:
+"According to policy X..."
+
+User:
+"What about international?"
+
+Agent:
+Understands the reference.
+
+User:
+"Give me both as JSON."
+
+Agent:
+Returns both in the requested structure.
+
+Implement short-term conversational state appropriately.
+
+---
+
+# UI REQUIREMENTS
+
+Create a polished enterprise dashboard.
+
+Main screen:
+```
+┌─────────────────────────────────────────────┐
+│ KOHLER Enterprise Intelligence │
+│ │
+│ User: Employee ▼ Role: Employee │
+├─────────────────────────────────────────────┤
+│ │
+│ Conversation │
+│ │
+│ User: What is the travel policy? │
+│ │
+│ AI: According to... │
+│ │
+│ ┌─────────────────────────────────────────┐ │
+│ │ Evidence │ │
+│ │ Travel Policy v3 │ │
+│ │ Effective: June 2026 │ │
+│ │ Confidence: HIGH │ │
+│ └─────────────────────────────────────────┘ │
+│ │
+│ Ask anything... │
+│ │
+│ [Send] [JSON] [XML] [Excel] [Email] │
+└─────────────────────────────────────────────┘
+```
+Additional views:
+
+1. Chat
+2. Knowledge Base
+3. Sources / Evidence
+4. Agent Trace
+5. Audit Log
+6. Settings / User Role
+
+Do not overcrowd the interface.
+
+---
+
+# DEMO SCENARIOS
+
+The prototype MUST support compelling demo scenarios.
+
+Create at least these:
+
+## DEMO 1 — Basic RAG
+
+"What is the travel reimbursement policy?"
+
+Show:
+
+- answer
+- citation
+- version
+- confidence
+
+## DEMO 2 — Multi-domain reasoning
+
+"What approvals are required before sharing customer data with an external vendor?"
+
+Retrieve multiple domains.
+
+## DEMO 3 — Permission-aware answer
+
+Ask the same question using different user roles.
+
+Demonstrate access-aware retrieval.
+
+## DEMO 4 — Policy conflict
+
+Create two intentionally conflicting prototype policy versions.
+
+Demonstrate conflict detection and resolution.
+
+## DEMO 5 — Dynamic JSON
+
+"Give me the reimbursement policy in JSON with eligibility, limit, approval and exceptions."
+
+Show validated JSON.
+
+## DEMO 6 — Excel
+
+"Create an Excel summary of eligible reimbursement categories."
+
+Generate an actual downloadable Excel file.
+
+## DEMO 7 — Email
+
+"Draft an email to HR asking for clarification about this policy."
+
+Generate a ready-to-send email.
+
+## DEMO 8 — Complex agentic workflow
+
+"Find the relevant policy, summarize the requirements, identify missing information, and prepare an email requesting the missing documents."
+
+Show the agent planning and tool usage.
+
+---
+
+# DATASET
+
+Do NOT claim access to confidential KOHLER internal documents.
+
+Create clearly labelled synthetic/demo enterprise documents inspired by the case-study domains.
+
+Include:
+
+HR:
+
+- Leave Policy
+- Travel Policy
+- Employee Conduct Policy
+
+Finance:
+
+- Reimbursement Policy
+- Procurement Guidelines
+- Expense Approval Policy
+
+Customer Support:
+
+- Warranty Policy
+- Complaint Escalation Policy
+- Service Guidelines
+
+Privacy:
+
+- Customer Data Handling Policy
+- Data Retention Policy
+
+Legal/Compliance:
+
+- Vendor Compliance Policy
+- Regulatory Guidelines
+- Approval Requirements
+
+Include multiple versions of at least some documents so version-awareness can be demonstrated.
+
+Clearly label the data as:
+
+"Synthetic demonstration data — not official KOHLER policy."
+
+---
+
+# TECHNOLOGY
+
+Choose a practical modern stack.
+
+Prefer:
+
+Frontend:
+
+- React / Next.js
+
+Backend:
+
+- Python
+- FastAPI
+
+AI:
+
+- LLM API with structured output/tool calling
+
+RAG:
+
+- embeddings
+- vector database
+
+Database:
+
+- PostgreSQL or an appropriate lightweight alternative for the prototype
+
+File generation:
+
+- Python openpyxl for Excel
+
+Authentication:
+
+- prototype RBAC
+
+Deployment:
+
+- Docker
+
+Use modular architecture.
+
+Do not introduce unnecessary frameworks.
+
+Before implementing a technology, explain why it is necessary.
+
+---
+
+# ENGINEERING REQUIREMENTS
+
+Write production-quality prototype code.
+
+Requirements:
+
+- Modular services
+- Type-safe schemas where appropriate
+- Pydantic models
+- Error handling
+- Logging
+- Environment variables
+- .env.example
+- No hardcoded API keys
+- Input validation
+- Output validation
+- Retry handling
+- Graceful API failures
+- Clear README
+- Setup instructions
+- Seed/demo data
+- Automated or repeatable ingestion process
+- Basic tests
+
+The application must be reproducible by another student/evaluator.
+
+---
+
+# SECURITY
+
+Implement basic enterprise AI safety:
+
+- RBAC
+- prompt injection awareness
+- document-level permissions
+- input validation
+- output validation
+- no secret keys in source code
+- safe file generation
+- audit logging
+
+Explicitly explain limitations.
+
+Do not pretend the prototype is production-secure.
+
+---
+
+# PROMPT ENGINEERING
+
+Create separate prompts for:
+
+1. Query understanding
+2. Domain classification
+3. Agent planning
+4. RAG answer generation
+5. Conflict detection
+6. Evidence verification
+7. Structured output generation
+8. Email generation
+9. Response validation
+
+Store prompts separately rather than burying them inside application code.
+
+Every important prompt should have:
+
+- purpose
+- inputs
+- expected output
+- constraints
+- failure handling
+
+---
+
+# PROJECT STRUCTURE
+
+Create a clean repository such as:
+```
+kohler-enterprise-ai/
+│
+├── README.md
+├── .env.example
+├── requirements.txt
+├── docker-compose.yml
+│
+├── frontend/
+│
+├── backend/
+│ ├── api/
+│ ├── agents/
+│ ├── rag/
+│ ├── tools/
+│ ├── security/
+│ ├── verification/
+│ ├── output/
+│ ├── database/
+│ └── models/
+│
+├── data/
+│ ├── hr/
+│ ├── finance/
+│ ├── support/
+│ ├── privacy/
+│ └── legal/
+│
+├── prompts/
+│
+├── tests/
+│
+├── docs/
+│ ├── architecture.md
+│ └── evaluation.md
+│
+└── demo/
+```
+---
+
+# README
+
+The README must explain:
+
+1. Problem
+2. Solution
+3. Why this is different from a normal chatbot
+4. Architecture
+5. AI techniques
+6. Security
+7. RAG pipeline
+8. Agent workflow
+9. Setup
+10. Running locally
+11. Demo scenarios
+12. Limitations
+13. Future improvements
+14. Business impact
+
+---
+
+# EVALUATION / BENCHMARKING
+
+Create a small evaluation dataset containing representative questions.
+
+Evaluate:
+
+- retrieval relevance
+- groundedness
+- citation correctness
+- conflict handling
+- permission enforcement
+- output format correctness
+- response latency
+
+Create a simple evaluation dashboard or report.
+
+Do not fabricate performance metrics.
+
+If measurements are unavailable, clearly label them as pending.
+
+---
+
+# PRESENTATION STRATEGY
+
+The final system should make it easy to communicate these five points:
+
+### PROBLEM
+
+Enterprise information is fragmented across departments, policies change over time, access is role-dependent, and employees need answers in different formats.
+
+### SOLUTION
+
+A unified enterprise AI agent combining:
+
+RAG + agents + RBAC + temporal knowledge + verification + structured outputs.
+
+### INNOVATION
+
+The system does not simply retrieve documents.
+
+It determines:
+
+"Who is asking?"
+
+"What information is relevant?"
+
+"Which version is authoritative?"
+
+"Are there conflicts?"
+
+"Can I answer confidently?"
+
+"What action/output is required?"
+
+### IMPACT
+
+Reduce:
+
+- information search time
+- repetitive administrative work
+- incorrect policy interpretation
+- compliance risk
+- manual report generation
+
+### FUTURE
+
+Potential integrations:
+
+- enterprise HR systems
+- ERP
+- CRM
+- ticketing
+- identity management
+- workflow approval systems
+
+---
+
+# CRITICAL RULES
+
+1. Do not build a generic chatbot.
+2. Do not fake AI capabilities.
+3. Do not claim synthetic documents are official KOHLER policies.
+4. Do not fabricate business metrics.
+5. Do not hardcode demo answers.
+6. Do not use confidential data.
+7. Do not add technologies simply for buzzwords.
+8. Every claimed feature should work in the prototype.
+9. Prefer reliable deterministic logic for permissions, validation and policy dates.
+10. Use LLMs where reasoning/language understanding genuinely adds value.
+11. Clearly separate deterministic business logic from probabilistic AI reasoning.
+12. Optimize for a stable demo.
+13. Make the architecture explainable during an interview.
+14. Keep the scope achievable by one student.
+
+---
+
+# DEVELOPMENT PROCESS
+
+Do NOT immediately generate the entire project blindly.
+
+Work in phases.
+
+## PHASE 1 — ARCHITECTURE
+
+First provide:
+
+- architecture
+- component responsibilities
+- data flow
+- technology choices
+- database design
+- RAG strategy
+- agent strategy
+- security strategy
+- output-generation strategy
+
+Explain tradeoffs.
+
+Then wait for approval.
+
+## PHASE 2 — MVP
+
+Build:
+
+- document ingestion
+- RAG
+- conversational UI
+- basic domain routing
+- citations
+- basic output formatting
+
+Ensure this works end-to-end.
+
+## PHASE 3 — DIFFERENTIATION
+
+Add:
+
+- RBAC
+- version-aware retrieval
+- conflict detection
+- agentic workflows
+- verification
+- audit trace
+
+## PHASE 4 — OUTPUTS
+
+Add:
+
+- JSON
+- XML
+- Excel
+- email
+
+with validation.
+
+## PHASE 5 — UX
+
+Polish the interface.
+
+## PHASE 6 — TESTING
+
+Test failure cases and edge cases.
+
+## PHASE 7 — SUBMISSION
+
+Generate:
+
+- README
+- architecture documentation
+- prompt documentation
+- demo instructions
+- presentation content
+- evaluation report
+- video demonstration script
+
+---
+
+# YOUR FIRST RESPONSE
+
+Before writing code, give me:
+
+1. Final recommended architecture
+2. Recommended tech stack with justification
+3. Database/vector DB design
+4. Agent workflow
+5. RAG workflow
+6. Permission architecture
+7. Verification architecture
+8. Dynamic output architecture
+9. Repository structure
+10. Development plan
+11. Minimum viable features
+12. Differentiating features
+13. Risks and mitigation
+14. Exact demo flow for a 2-minute presentation
+
+Then wait for my approval before proceeding to implementation.
+---------- END ----------
 
 ## 7. Development Workflows & Prompt Engineering Methodology
 
