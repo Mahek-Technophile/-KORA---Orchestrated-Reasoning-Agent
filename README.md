@@ -23,6 +23,8 @@ The **KOHLER Enterprise Intelligence Agent** is an enterprise-grade AI copilot p
 5. **Legal & Compliance** (Vendor master agreements, DPA requirements, whistleblower hotline)
 
 ### Core Architectural Pillars
+<img width="1445" height="1020" alt="KOHLER Enterprise Intelligence Agent Architecture" src="https://github.com/user-attachments/assets/e5d0dd57-0103-4d55-be58-a7fb09d54e38" />
+
 ```mermaid
 flowchart TD
 
