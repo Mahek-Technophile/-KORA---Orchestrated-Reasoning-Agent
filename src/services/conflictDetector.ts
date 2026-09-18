@@ -112,12 +112,12 @@ export function analyzePolicyConflicts(
     }
   }
 
-  // Check 3: Cross-domain governance dependency check
+  // Check 3: Cross-domain governance dependency check (only flags as conflict if explicit tension or contradiction exists)
   const domains = new Set(citations.map(c => candidateDocs.find(d => d.id === c.docId)?.domain).filter(Boolean));
   const hasPrivacy = domains.has('PRIVACY');
   const hasLegal = domains.has('LEGAL');
 
-  if (hasPrivacy && hasLegal && /(vendor|cloud|share|external|transfer|export|third[- ]party)/i.test(query)) {
+  if (hasPrivacy && hasLegal && /(conflict|contradict|tension|discrepancy|override)/i.test(query)) {
     return {
       detected: true,
       type: 'CROSS_DOMAIN_TENSION',

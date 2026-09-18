@@ -85,76 +85,103 @@ export function retrieveGroundedKnowledge(
     });
   });
 
-  // 2. DETERMINISTIC PRE-RETRIEVAL SECURITY FILTER (RBAC)
-  // Unauthorized chunks are dropped before any relevance scoring or context exposure
-  const authorizedChunks: PolicyChunk[] = [];
-  let filteredOutCount = 0;
-
-  for (const chunk of allChunks) {
-    if (isRoleAuthorizedForChunk(userRole, chunk.accessLevel)) {
-      authorizedChunks.push(chunk);
-    } else {
-      filteredOutCount++;
-    }
-  }
-
-  // 3. Scoring & Temporal-Aware Reranking
-  interface ScoredChunk {
+  // 2. Score candidate chunks across all domains before filtering to preserve intent and detect access barriers
+  interface ScoredCandidate {
     chunk: PolicyChunk;
     score: number;
     doc: PolicyDocument;
+    isAuthorized: boolean;
+    distinctMatches: number;
   }
 
-  const scored: ScoredChunk[] = [];
+  const scoredCandidates: ScoredCandidate[] = [];
 
-  for (const chunk of authorizedChunks) {
+  for (const chunk of allChunks) {
     const parentDoc = KOHLER_POLICIES.find(d => d.id === chunk.documentId)!;
     const contentLower = chunk.content.toLowerCase();
     const sectionLower = chunk.section.toLowerCase();
-    let score = 0;
+    const isAuthorized = isRoleAuthorizedForChunk(userRole, chunk.accessLevel);
+    
+    let matchScore = 0;
+    let distinctMatches = 0;
 
     // A. Term matching across content, section headers, and metadata keywords
     for (const term of qTerms) {
-      if (contentLower.includes(term)) score += 3.0;
-      if (sectionLower.includes(term)) score += 4.5;
-      if (chunk.keywords.some(k => k.toLowerCase().includes(term))) score += 2.5;
+      let termMatched = false;
+      if (contentLower.includes(term)) { matchScore += 3.0; termMatched = true; }
+      if (sectionLower.includes(term)) { matchScore += 4.5; termMatched = true; }
+      if (chunk.keywords.some(k => k.toLowerCase().includes(term))) { matchScore += 3.5; termMatched = true; }
+      if (termMatched) distinctMatches++;
     }
 
+    if (distinctMatches === 0 || matchScore < 3.0) {
+      continue;
+    }
+
+    let score = matchScore;
+
+    // Check if query mentions older historical terms or superseded figures (e.g. $50 per diem)
+    const mentionsOlderFigures = /\b(50|50\.00|2024|v2|v2\.0|historical|superseded|previous|prior)\b/i.test(query);
+
     // B. Temporal relevance scoring:
-    // If user explicitly asks about historical years, boost the superseded policy from that timeframe
-    if (isHistoricalQuery) {
+    if (isHistoricalQuery || mentionsOlderFigures) {
       if (targetYear && parentDoc.effectiveDate.startsWith(targetYear.toString())) {
         score += 8.0;
       } else if (parentDoc.status === 'SUPERSEDED') {
-        score += 4.0;
+        score += 5.0;
       }
     } else {
-      // Default to active current policy
       if (parentDoc.status === 'ACTIVE') {
         score += 5.0;
+      } else if (parentDoc.status === 'SUPERSEDED') {
+        score -= 20.0; // Prevent obsolete versions from polluting current queries
       }
     }
 
-    // C. Governance Authority weighting (Board / VP-level policies take precedence)
+    // C. Governance Authority weighting
     if (parentDoc.authorityLevel === 'BOARD') score += 2.0;
     if (parentDoc.authorityLevel === 'VP_LEVEL') score += 1.5;
     if (parentDoc.authorityLevel === 'DIRECTOR') score += 1.0;
 
-    // D. Include superseded policy alongside active if the query mentions obsolete or conflicting terms
-    if (parentDoc.supersedesId && score > 0) {
+    // D. Historical conflict relevance: boost older version if query references older values
+    if (parentDoc.supersedesId && (isHistoricalQuery || mentionsOlderFigures)) {
       score += 1.0;
     }
 
-    if (score > 0) {
-      scored.push({ chunk, score, doc: parentDoc });
-    }
+    scoredCandidates.push({ chunk, score, doc: parentDoc, isAuthorized, distinctMatches });
   }
 
   // Sort descending by calculated relevance score
-  scored.sort((a, b) => b.score - a.score);
+  scoredCandidates.sort((a, b) => b.score - a.score);
 
-  // Take top K chunks (up to 5 most relevant)
-  const topK = scored.slice(0, 5);
+  // 3. DETERMINISTIC PRE-RETRIEVAL SECURITY FILTER (RBAC)
+  // If the query specifically targets a restricted document, and the user's role lacks clearance,
+  // we do NOT leak low-scoring unrelated documents as fallbacks.
+  const filteredOutCount = scoredCandidates.filter(c => !c.isAuthorized).length;
+
+  if (scoredCandidates.length > 0 && !scoredCandidates[0].isAuthorized) {
+    // The top candidate answering this query is restricted for this user role
+    return {
+      candidateChunks: allChunks,
+      authorizedChunks: [],
+      filteredOutDocCount: filteredOutCount > 0 ? filteredOutCount : 1,
+      detectedDomains,
+      citations: []
+    };
+  }
+
+  // User is authorized for the top match: retain authorized chunks matching topic threshold
+  const authorizedScored = scoredCandidates.filter(s => s.isAuthorized);
+  const topScore = authorizedScored.length > 0 ? authorizedScored[0].score : 0;
+  
+  // Prune unrelated low-scoring chunks (must be within 55% of top score and match core query terms)
+  const topCandidate = authorizedScored[0];
+  const relevantAuthorized = authorizedScored.filter(s => 
+    s.score >= Math.max(topScore * 0.55, 8.0) && 
+    (s.distinctMatches >= 2 || s.doc.id === topCandidate.doc.id || isHistoricalQuery)
+  );
+
+  const topK = relevantAuthorized.slice(0, 5);
 
   const citations: Citation[] = topK.map(item => ({
     docId: item.doc.id,
