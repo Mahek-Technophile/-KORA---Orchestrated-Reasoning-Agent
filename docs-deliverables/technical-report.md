@@ -62,48 +62,103 @@ This hybrid division is the standard architectural design pattern for production
 ## 2. Architectural Blueprint
 <img width="1445" height="1020" alt="KOHLER Enterprise Intelligence Agent Architecture" src="https://github.com/user-attachments/assets/5d17def4-1467-457d-b2ed-03cd93a2009b" />
 
+```mermaid
+flowchart TD
 
-The system is organized into four distinct architectural tiers:
+subgraph group_runtime["Runtime and Entry"]
+  node_app_server["Express/Vite Server<br/>application server"]
+  node_spa_bootstrap["React SPA Bootstrap<br/>frontend entry"]
+  node_app_controller["Copilot Application Controller<br/>frontend controller"]
+end
 
+subgraph group_ui["Copilot UI"]
+  node_role_navigation["Role and Tab Navigation<br/>UI component"]
+  node_chat_workspace["Chat Conversation Workspace<br/>UI component"]
+  node_evidence_inspector["Citation Evidence Inspector<br/>UI component"]
+  node_approval_dialog["High-Risk Approval Dialog<br/>UI component"]
+  node_trace_viewer["Agent Trace Viewer<br/>UI component"]
+  node_knowledge_explorer["Knowledge Repository Explorer<br/>UI component"]
+  node_audit_viewer["Audit Trail Viewer<br/>UI component"]
+  node_benchmark_runner["Benchmark Runner<br/>evaluation UI"]
+end
+
+subgraph group_workflow["Agent Workflow and Governance"]
+  node_workflow_planner["Agent Workflow Planner<br/>agent orchestrator"]
+  node_retrieval_rbac["Policy Retrieval and RBAC<br/>retrieval and authorization service"]
+  node_conflict_analyzer["Policy Conflict Analyzer<br/>policy analysis service"]
+  node_confidence_verifier["Grounding and Confidence Verifier<br/>verification service"]
+  node_artifact_formatter["Output Artifact Formatter<br/>output formatting service"]
+  node_audit_logger["In-Memory Audit Logger<br/>audit service"]
+end
+
+subgraph group_data["Synthetic Data and Evaluation"]
+  node_policy_repository[("Synthetic Policy Repository<br/>in-memory policy data")]
+  node_employee_directory[("Synthetic Employee and Expense Directory<br/>in-memory directory data")]
+  node_benchmark_catalog[("Benchmark Scenario Catalog<br/>evaluation data")]
+end
+
+subgraph group_external["External Systems"]
+  node_browser_user(("Browser User<br/>external actor"))
+  node_gemini_api(("Google Gemini API<br/>external inference provider"))
+end
+
+node_browser_user -->|"requests SPA/API"| node_app_server
+node_browser_user -->|"executes bundle"| node_spa_bootstrap
+node_spa_bootstrap -->|"renders App"| node_app_controller
+node_browser_user -->|"submits queries"| node_app_controller
+node_app_controller -->|"executes workflow"| node_workflow_planner
+node_workflow_planner -->|"returns plan"| node_app_controller
+node_app_controller -->|"supplies conversation"| node_chat_workspace
+node_app_controller -->|"supplies trace"| node_trace_viewer
+node_app_controller -->|"maintains citation"| node_evidence_inspector
+node_app_controller -->|"maintains approval"| node_approval_dialog
+node_app_controller -->|"writes audit event"| node_audit_logger
+node_audit_viewer -->|"reads records"| node_audit_logger
+node_benchmark_catalog -->|"supplies cases"| node_benchmark_runner
+node_benchmark_runner -->|"executes cases"| node_workflow_planner
+node_retrieval_rbac -->|"reads and scores"| node_policy_repository
+node_workflow_planner -->|"routes retrieval"| node_retrieval_rbac
+node_workflow_planner -->|"checks conflicts"| node_conflict_analyzer
+node_workflow_planner -->|"verifies grounding"| node_confidence_verifier
+node_workflow_planner -->|"formats output"| node_artifact_formatter
+node_workflow_planner -->|"uses lookup tools"| node_employee_directory
+node_app_controller -.->|"requests Gemini proxy"| node_app_server
+node_app_server -.->|"generates content"| node_gemini_api
+
+click node_app_server "https://github.com/mahek-technophile/kohler-project/blob/main/server.ts"
+click node_spa_bootstrap "https://github.com/mahek-technophile/kohler-project/blob/main/src/main.tsx"
+click node_app_controller "https://github.com/mahek-technophile/kohler-project/blob/main/src/App.tsx"
+click node_role_navigation "https://github.com/mahek-technophile/kohler-project/blob/main/src/components/Header.tsx"
+click node_chat_workspace "https://github.com/mahek-technophile/kohler-project/blob/main/src/components/ChatView.tsx"
+click node_evidence_inspector "https://github.com/mahek-technophile/kohler-project/blob/main/src/components/EvidenceDrawer.tsx"
+click node_approval_dialog "https://github.com/mahek-technophile/kohler-project/blob/main/src/components/HitlApprovalModal.tsx"
+click node_trace_viewer "https://github.com/mahek-technophile/kohler-project/blob/main/src/components/AgentTraceView.tsx"
+click node_knowledge_explorer "https://github.com/mahek-technophile/kohler-project/blob/main/src/components/KnowledgeBaseView.tsx"
+click node_audit_viewer "https://github.com/mahek-technophile/kohler-project/blob/main/src/components/AuditLogView.tsx"
+click node_benchmark_runner "https://github.com/mahek-technophile/kohler-project/blob/main/src/components/BenchmarkView.tsx"
+click node_workflow_planner "https://github.com/mahek-technophile/kohler-project/blob/main/src/services/agentPlanner.ts"
+click node_retrieval_rbac "https://github.com/mahek-technophile/kohler-project/blob/main/src/services/ragEngine.ts"
+click node_conflict_analyzer "https://github.com/mahek-technophile/kohler-project/blob/main/src/services/conflictDetector.ts"
+click node_confidence_verifier "https://github.com/mahek-technophile/kohler-project/blob/main/src/services/verificationEngine.ts"
+click node_artifact_formatter "https://github.com/mahek-technophile/kohler-project/blob/main/src/services/outputFormatters.ts"
+click node_audit_logger "https://github.com/mahek-technophile/kohler-project/blob/main/src/services/auditLogger.ts"
+click node_policy_repository "https://github.com/mahek-technophile/kohler-project/blob/main/src/data/syntheticKnowledgeBase.ts"
+click node_employee_directory "https://github.com/mahek-technophile/kohler-project/blob/main/src/data/employeeDirectory.ts"
+click node_benchmark_catalog "https://github.com/mahek-technophile/kohler-project/blob/main/src/data/evaluationBenchmark.ts"
+
+classDef toneNeutral fill:#f8fafc,stroke:#334155,stroke-width:1.5px,color:#0f172a
+classDef toneBlue fill:#dbeafe,stroke:#2563eb,stroke-width:1.5px,color:#172554
+classDef toneAmber fill:#fef3c7,stroke:#d97706,stroke-width:1.5px,color:#78350f
+classDef toneMint fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px,color:#14532d
+classDef toneRose fill:#ffe4e6,stroke:#e11d48,stroke-width:1.5px,color:#881337
+classDef toneIndigo fill:#e0e7ff,stroke:#4f46e5,stroke-width:1.5px,color:#312e81
+classDef toneTeal fill:#ccfbf1,stroke:#0f766e,stroke-width:1.5px,color:#134e4a
+class node_app_server,node_spa_bootstrap,node_app_controller toneBlue
+class node_role_navigation,node_chat_workspace,node_evidence_inspector,node_approval_dialog,node_trace_viewer,node_knowledge_explorer,node_audit_viewer,node_benchmark_runner toneAmber
+class node_workflow_planner,node_retrieval_rbac,node_conflict_analyzer,node_confidence_verifier,node_artifact_formatter,node_audit_logger toneMint
+class node_policy_repository,node_employee_directory,node_benchmark_catalog toneRose
+class node_browser_user,node_gemini_api toneIndigo
 ```
-+---------------------------------------------------------------------------------------+
-| 1. PRESENTATION & INTERACTION TIER                                                    |
-|    - React 19 + TypeScript + Tailwind CSS Single-Page Application                     |
-|    - Persona / Role Simulator (Employee, Manager, HR, Finance, Legal, Admin)           |
-|    - Interactive Copilot, ReAct Execution Trace, Audit Log, Benchmark & KB Views      |
-+---------------------------------------------------------------------------------------+
-                                           |
-                                           v
-+---------------------------------------------------------------------------------------+
-| 2. AGENTIC ORCHESTRATION TIER (ReAct Loop)                                            |
-|    - Step 1: Format & Intent Parser (Detects CHAT, JSON, XML, EXCEL, EMAIL schemas)   |
-|    - Step 2: Domain Taxonomy Router (HR, FINANCE, SUPPORT, PRIVACY, LEGAL)             |
-|    - Step 3: Deterministic Pre-Retrieval RBAC Filter (Hard role-based chunk drop)     |
-|    - Step 4: Hybrid BM25 / Temporal Retrieval Engine (Token overlap + date weighting)  |
-|    - Step 5: Policy Conflict & Supersession Graph (Analyzes active vs superseded links)|
-|    - Step 6: Tool Execution Engine (Employee Directory, Travel Audit, SheetJS XLSX)   |
-|    - Step 7: Grounded Answer Synthesis (Strict citation enforcement)                  |
-|    - Step 8: Multi-Factor Observable Confidence Heuristic (Relevance, Authority, etc.) |
-|    - Step 9: Human-in-the-Loop (HITL) Gate (Intercepts high-risk external actions)    |
-+---------------------------------------------------------------------------------------+
-                                           |
-                                           v
-+---------------------------------------------------------------------------------------+
-| 3. VERIFICATION & TELEMETRY TIER                                                      |
-|    - Verifier: Checks numerical assertions against retrieved source chunks             |
-|    - Audit Logger: Captures user, role, query, accessible docs, latency, HITL state   |
-|    - Benchmark Suite: Executes 8 track scenarios live with performance.now() clocks   |
-+---------------------------------------------------------------------------------------+
-                                           |
-                                           v
-+---------------------------------------------------------------------------------------+
-| 4. ENTERPRISE REPOSITORY & DATA TIER                                                  |
-|    - Synthetic Multi-Domain Knowledge Base (10 documents, version metadata, dates)     |
-|    - Synthetic Employee & Expense Directory (Lightning McQueen, Sarah Jenkins, etc.)  |
-|    - Server-Side Gemini API Proxy with Deterministic Fallback Engine                  |
-+---------------------------------------------------------------------------------------+
-```
-
 ---
 
 ## 3. Core Architectural Modules
