@@ -32,6 +32,7 @@ The **KOHLER Enterprise Intelligence Agent** employs a **Neuro-Symbolic, Multi-S
 ---
 
 ## Core System Instruction & Persona Definition
+This promt was generated from ChatGPT and pasted into Google AI studio And FreeBuff ( which is a combination of : DeepSeek V4, GPT-5.6 Luna, and MiniMax M3 ) and the output of approach was then evaluated , combined and confirmed by claude(sonnet) and ChatGPT and finally built using google ai studio, 
 
 ### Master System Prompt
 ---------- START ----------
