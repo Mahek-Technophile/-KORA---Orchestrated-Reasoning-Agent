@@ -94,7 +94,7 @@ export const BenchmarkView: React.FC<BenchmarkViewProps> = ({ onSelectTestCase }
         detectedDomains: plan.detectedDomains,
         retrievedDocCount: plan.citations.length,
         accessibleDocIds: plan.citations.map(c => c.docId),
-        filteredOutDocIds: !tc.expectedAccessAllowed ? ["KOHLER-FIN-DISC-109-V1"] : [],
+        filteredOutDocIds: !tc.expectedAccessAllowed ? ["KORA-FIN-DISC-109-V1"] : [],
         conflictsFound: plan.conflictReport.detected,
         confidence: plan.confidence.level,
         confidenceScore: plan.confidence.score,

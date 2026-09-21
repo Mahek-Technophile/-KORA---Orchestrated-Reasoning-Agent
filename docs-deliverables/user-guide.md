@@ -44,7 +44,7 @@ You can run any scenario in two ways:
 * **Active Role**: `EMPLOYEE`
 * **Format**: `Standard Answer`
 * **What to Observe**:
-  * Agent retrieves `KOHLER-FIN-POL-101-V3` (Section 3.2).
+  * Agent retrieves `KORA-FIN-POL-101-V3` (Section 3.2).
   * Cites exact policy constraints: **$75.00 daily allowance limit**, receipts required for expenses exceeding $25.00, and corporate card requirement.
   * Verified citation buttons appear beneath the response. Click any citation to open the source excerpt in the Evidence Drawer.
 
@@ -57,9 +57,9 @@ You can run any scenario in two ways:
 * **What to Observe**:
   * Agent identifies a multi-domain inquiry and routes to **Privacy**, **Legal**, and **Customer Support**.
   * Synthesizes requirements across three distinct documents:
-    1. **Data Privacy** (`KOHLER-PRV-DATA-301-V3`): Mandatory Data Protection Impact Assessment (DPIA) and AES-256 encryption.
-    2. **Legal Compliance** (`KOHLER-LEG-VEND-401-V3`): Executed Data Processing Agreement (DPA) and SOC2 Type II certification.
-    3. **Warranty Scope** (`KOHLER-CS-WARR-201-V4`): Customer telemetry governance.
+    1. **Data Privacy** (`KORA-PRV-DATA-301-V3`): Mandatory Data Protection Impact Assessment (DPIA) and AES-256 encryption.
+    2. **Legal Compliance** (`KORA-LEG-VEND-401-V3`): Executed Data Processing Agreement (DPA) and SOC2 Type II certification.
+    3. **Warranty Scope** (`KORA-CS-WARR-201-V4`): Customer telemetry governance.
 
 ---
 
@@ -67,7 +67,7 @@ You can run any scenario in two ways:
 * **Prompt**: *"What are the discretionary executive entertainment budget caps and approval thresholds?"*
 * **Part A (Employee Role)**:
   * Select `EMPLOYEE` from the role dropdown and submit the prompt.
-  * **Result**: Pre-retrieval clearance gate drops `KOHLER-FIN-DISC-109-V1`. The agent responds with a formal **Access Restricted** notice and surfaces zero confidential figures.
+  * **Result**: Pre-retrieval clearance gate drops `KORA-FIN-DISC-109-V1`. The agent responds with a formal **Access Restricted** notice and surfaces zero confidential figures.
 * **Part B (Finance Role)**:
   * Switch active role to `FINANCE` and re-submit the identical prompt.
   * **Result**: Security gate grants access. The agent reveals the **$25,000 per event limit**, VP/CFO dual-approval thresholds, and alcohol expense restrictions.
@@ -114,7 +114,7 @@ You can run any scenario in two ways:
 * **What to Observe**:
   * The agent references Section 4.1 of the travel policy (>8 hour international flight criteria).
   * Renders a formal email artifact complete with:
-    * `To:` corporate.travel@kohler.com
+    * `To:` corporate.travel@kora.ai
     * `Subject:` Travel Policy Exception Request - Business Class Long-Haul (>8 Hours)
     * Structured rationale and governance citations.
 

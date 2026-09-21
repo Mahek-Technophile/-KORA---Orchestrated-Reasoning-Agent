@@ -38,7 +38,7 @@ This promt was generated from ChatGPT and pasted into Google AI studio And FreeB
 > ---------- START ----------
   # ROLE
   
-  You are a senior AI architect, full-stack engineer, and product designer helping me build an individual prototype for the **KOHLER-MITWPU AI Research Lab Case Study — Track 3: KOHLER Unified Enterprise AI Agent**.
+  You are a senior AI architect, full-stack engineer, and product designer helping me build an individual prototype for the **KORA AI Research Lab Case Study — Track 3: KORA Unified Enterprise AI Agent**.
   
   You must think like:
   
@@ -57,7 +57,7 @@ This promt was generated from ChatGPT and pasted into Google AI studio And FreeB
   
   # CASE STUDY
   
-  ## Track 3: KOHLER Unified Enterprise AI Agent
+  ## Track 3: KORA Unified Enterprise AI Agent
   
   Objective:
   
@@ -199,7 +199,7 @@ This promt was generated from ChatGPT and pasted into Google AI studio And FreeB
   
   ## 4. BUSINESS & SUSTAINABILITY IMPACT — 10%
   
-  Connect the system to KOHLER's broader business goals:
+  Connect the system to KORA's broader business goals:
   
   - operational efficiency
   - faster information access
@@ -220,7 +220,7 @@ This promt was generated from ChatGPT and pasted into Google AI studio And FreeB
   - estimated time saved
   - automation rate
   
-  Do NOT fabricate real KOHLER business numbers.
+  Do NOT fabricate real enterprise business numbers.
   
   Use clearly labelled prototype estimates where necessary.
   
@@ -761,7 +761,7 @@ This promt was generated from ChatGPT and pasted into Google AI studio And FreeB
   
   # DATASET
   
-  Do NOT claim access to confidential KOHLER internal documents.
+  Do NOT claim access to confidential enterprise internal documents.
   
   Create clearly labelled synthetic/demo enterprise documents inspired by the case-study domains.
   
@@ -800,7 +800,7 @@ This promt was generated from ChatGPT and pasted into Google AI studio And FreeB
   
   Clearly label the data as:
   
-  "Synthetic demonstration data — not official KOHLER policy."
+  "Synthetic demonstration data — not official company policy."
   
   ---
   
@@ -929,7 +929,7 @@ This promt was generated from ChatGPT and pasted into Google AI studio And FreeB
   
   Create a clean repository such as:
   ```
-  kohler-enterprise-ai/
+  kora-enterprise-ai/
   │
   ├── README.md
   ├── .env.example
@@ -1070,7 +1070,7 @@ This promt was generated from ChatGPT and pasted into Google AI studio And FreeB
   
   1. Do not build a generic chatbot.
   2. Do not fake AI capabilities.
-  3. Do not claim synthetic documents are official KOHLER policies.
+  3. Do not claim synthetic documents are official company policies.
   4. Do not fabricate business metrics.
   5. Do not hardcode demo answers.
   6. Do not use confidential data.
@@ -1192,7 +1192,7 @@ This promt was generated from ChatGPT and pasted into Google AI studio And FreeB
 ## 7. Development Workflows & Prompt Engineering Methodology
 
 ### 7.1. Iterative Refinement Workflow
-1. **Domain Boundary Mapping**: Compiled synthetic policy documents representing real Kohler business units with conflicting dates, authority levels, and restricted clearance tiers.
+1. **Domain Boundary Mapping**: Compiled synthetic policy documents representing enterprise business units with conflicting dates, authority levels, and restricted clearance tiers.
 2. **Few-Shot Calibration**: Evaluated responses against boundary test queries to eliminate LLM speculation and enforce verbatim clause citations.
 3. **Deterministic Separation**: Removed security and versioning logic from prompt strings and relocated them into TypeScript rule engines, using prompts purely for semantic understanding and linguistic synthesis.
 4. **Automated Verification**: Integrated the 8 benchmark test scenarios into an automated suite to continuously verify citation groundedness, RBAC containment, and output format compliance.

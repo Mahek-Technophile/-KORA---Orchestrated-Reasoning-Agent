@@ -16,11 +16,11 @@ export interface EmployeeExpenseRecord {
 }
 
 export const CURRENT_USER: UserProfile = {
-  id: "KOHLER-EMP-95095",
+  id: "KORA-EMP-95095",
   name: "Lightning McQueen",
   role: "EMPLOYEE",
   department: "Product Design & Sustainable Engineering",
-  email: "lightning.mcqueen@kohler.com"
+  email: "lightning.mcqueen@kora.ai"
 };
 
 export const AVAILABLE_ROLES: { role: UserRole; label: string; badge: string; description: string }[] = [
@@ -34,7 +34,7 @@ export const AVAILABLE_ROLES: { role: UserRole; label: string; badge: string; de
 
 export const SYNTHETIC_EMPLOYEE_DIRECTORY: EmployeeExpenseRecord[] = [
   {
-    employeeId: "KOHLER-EMP-95095",
+    employeeId: "KORA-EMP-95095",
     name: "Lightning McQueen",
     department: "Product Design & Sustainable Engineering",
     tripPurpose: "Milan Design Week - Smart Sanitary Ware Showcase",
@@ -48,10 +48,10 @@ export const SYNTHETIC_EMPLOYEE_DIRECTORY: EmployeeExpenseRecord[] = [
     notes: "Daily meal average ($68.50) is strictly within the $75 domestic / $110 international cap. Economy flight booked via Concur."
   },
   {
-    employeeId: "KOHLER-EMP-10442",
+    employeeId: "KORA-EMP-10442",
     name: "Sarah Jenkins",
     department: "Global Customer Care",
-    tripPurpose: "Regional Kohler Experience Center Quality Audit (Chicago)",
+    tripPurpose: "Regional KORA Experience Center Quality Audit (Chicago)",
     travelDates: "2026-01-20 to 2026-01-23 (3 days)",
     totalClaimedUSD: 640.00,
     daysTraveled: 3,
@@ -62,10 +62,10 @@ export const SYNTHETIC_EMPLOYEE_DIRECTORY: EmployeeExpenseRecord[] = [
     notes: "Under $1,000 threshold, approved by Direct Manager. All receipts attached."
   },
   {
-    employeeId: "KOHLER-EMP-33891",
+    employeeId: "KORA-EMP-33891",
     name: "Marcus Vance",
     department: "Corporate Procurement",
-    tripPurpose: "Supplier Factory Inspection (Kohler, Wisconsin)",
+    tripPurpose: "Supplier Factory Inspection (Main Facility)",
     travelDates: "2026-02-01 to 2026-02-03 (2 days)",
     totalClaimedUSD: 420.00,
     daysTraveled: 2,
@@ -76,10 +76,10 @@ export const SYNTHETIC_EMPLOYEE_DIRECTORY: EmployeeExpenseRecord[] = [
     notes: "Daily meal average ($94.00) exceeds the domestic daily per diem limit of $75.00 specified in Policy v3.1. Requires itemized exception justification."
   },
   {
-    employeeId: "KOHLER-EMP-77219",
+    employeeId: "KORA-EMP-77219",
     name: "Elena Rostova",
     department: "IoT Embedded Systems",
-    tripPurpose: "CES 2026 Kohler Konnect Keynote Presentation",
+    tripPurpose: "CES 2026 KORA Connect Keynote Presentation",
     travelDates: "2026-01-08 to 2026-01-12 (4 days)",
     totalClaimedUSD: 1450.00,
     daysTraveled: 4,
@@ -90,7 +90,7 @@ export const SYNTHETIC_EMPLOYEE_DIRECTORY: EmployeeExpenseRecord[] = [
     notes: "Exceeds $1,000 threshold; automatically routed to Department Director for required sign-off under Section 7.3."
   },
   {
-    employeeId: "KOHLER-EMP-51204",
+    employeeId: "KORA-EMP-51204",
     name: "David Chen",
     department: "Supply Chain & Logistics",
     tripPurpose: "Distribution Center Automation Review",

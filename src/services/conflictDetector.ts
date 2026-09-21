@@ -1,5 +1,5 @@
 import { Citation, ConflictReport, PolicyDocument } from '../types/enterprise';
-import { KOHLER_POLICIES } from '../data/syntheticKnowledgeBase';
+import { KORA_POLICIES } from '../data/syntheticKnowledgeBase';
 
 /**
  * Data-driven conflict & version resolution engine.
@@ -16,7 +16,7 @@ import { KOHLER_POLICIES } from '../data/syntheticKnowledgeBase';
 export function analyzePolicyConflicts(
   query: string,
   citations: Citation[],
-  candidateDocs: PolicyDocument[] = KOHLER_POLICIES
+  candidateDocs: PolicyDocument[] = KORA_POLICIES
 ): ConflictReport {
   if (citations.length === 0) {
     return { detected: false, isResolved: true };

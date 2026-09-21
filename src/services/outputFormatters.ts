@@ -32,7 +32,7 @@ export function buildDynamicOutput(
         },
         policy_summary: {
           governing_document: citations[0]?.title || "Travel & Business Expense Policy",
-          document_id: citations[0]?.docId || "KOHLER-FIN-POL-101-V3",
+          document_id: citations[0]?.docId || "KORA-FIN-POL-101-V3",
           version: citations[0]?.version || "v3.1",
           effective_date: citations[0]?.effectiveDate || "2026-01-01",
           authority: citations[0]?.authority || "VP_LEVEL"
@@ -82,7 +82,7 @@ export function buildDynamicOutput(
     <status>VERIFIED</status>
   </metadata>
   <policy_summary>
-    <governing_policy id="${citations[0]?.docId || 'KOHLER-FIN-POL-101-V3'}" version="${citations[0]?.version || 'v3.1'}">
+    <governing_policy id="${citations[0]?.docId || 'KORA-FIN-POL-101-V3'}" version="${citations[0]?.version || 'v3.1'}">
       ${citations[0]?.title || 'Global Business Travel & Expense Policy'}
     </governing_policy>
     <effective_date>${citations[0]?.effectiveDate || '2026-01-01'}</effective_date>
@@ -139,7 +139,7 @@ export function buildDynamicOutput(
       const wb = XLSX.utils.book_new();
       const wsData = [
         ["KORA — ENTERPRISE EXPENSE REIMBURSEMENT AUDIT REPORT"],
-        [`Generated: ${new Date().toLocaleDateString()} | Governing Policy: KOHLER-FIN-POL-101-V3 (v3.1)`],
+        [`Generated: ${new Date().toLocaleDateString()} | Governing Policy: KORA-FIN-POL-101-V3 (v3.1)`],
         [],
         tableHeaders,
         ...tableRows
@@ -197,13 +197,13 @@ export function buildDynamicOutput(
 
       if (isProcurementFlightQuery) {
         emailDraft = {
-          to: "corporate.travel@kohler.com",
-          cc: "sarah.lin.director@kohler.com, lightning.mcqueen@kohler.com",
+          to: "corporate.travel@kora.ai",
+          cc: "sarah.lin.director@kora.ai, lightning.mcqueen@kora.ai",
           subject: "Formal Exception Request: Business Class Authorization for Critical Flight to Tokyo (Flight >8 Hours)",
           salutation: "Dear Corporate Travel & Procurement Operations,",
-          body: `I am writing to formally request booking authorization for Business Class travel for an urgent on-site technical engagement at the Tokyo Smart Bathroom Innovation Pavilion.
+          body: `I am writing to formally request booking authorization for Business Class travel for an urgent on-site technical engagement at the Tokyo Innovation Pavilion.
 
-In accordance with KOHLER Global Business Travel Policy (Doc ID: KOHLER-FIN-POL-101-V3, Section 4.1: Airfare & Cabin Class Restrictions), Business Class travel is authorized for nonstop international itineraries that exceed eight (8) continuous flight hours.
+In accordance with KORA Global Business Travel Policy (Doc ID: KORA-FIN-POL-101-V3, Section 4.1: Airfare & Cabin Class Restrictions), Business Class travel is authorized for nonstop international itineraries that exceed eight (8) continuous flight hours.
 
 Flight Details:
 • Itinerary: Chicago O'Hare (ORD) to Tokyo Haneda (HND)
@@ -212,7 +212,7 @@ Flight Details:
 
 Department Director endorsement has been logged in Concur under pre-approval ID #TX-88209. Please confirm ticket issuance through our preferred corporate carrier.`,
           policyReferences: [
-            "KOHLER-FIN-POL-101-V3: Section 4.1 (Airfare Cabin Class Regulations)",
+            "KORA-FIN-POL-101-V3: Section 4.1 (Airfare Cabin Class Regulations)",
             "Section 7.3: Department Director Concur Sign-off Threshold"
           ],
           actionItems: [
@@ -223,8 +223,8 @@ Department Director endorsement has been logged in Concur under pre-approval ID 
         };
       } else {
         emailDraft = {
-          to: "hr.operations@kohler.com",
-          cc: "lightning.mcqueen@kohler.com",
+          to: "hr.operations@kora.ai",
+          cc: "lightning.mcqueen@kora.ai",
           subject: "Inquiry Regarding Corporate Policy Interpretation & Guidance",
           salutation: "Dear People Operations Team,",
           body: `I am reaching out to clarify the official operational interpretation of company policy regarding the following inquiry:\n\n"${query}"\n\nBased on preliminary analysis from KORA (Orchestrated Reasoning Agent), the governing policy is referenced below. Could you please confirm if any additional department-specific exceptions apply to our business unit?`,

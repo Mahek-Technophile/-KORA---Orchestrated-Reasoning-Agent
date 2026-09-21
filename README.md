@@ -7,7 +7,7 @@
 
 | # | Deliverable | Description | Link |
 |---|---|---|---|
-| 1 | **Working Model** | Source code, configuration, instructions, and scripts required to run the functional prototype. | [prototype](https://kohler-enterprise-intelligence.vercel.app/) |
+| 1 | **Working Model** | Source code, configuration, instructions, and scripts required to run the functional prototype. | [Functional Prototype (KORA)](https://kora-agent.vercel.app/) |
 | 2 | **Prompts Documentation (PDF)** | Comprehensive documentation containing all AI prompts, system instructions, agent workflows, and prompt engineering used in the solution. | [View Prompts Documentation](docs-deliverables/prompts.md) |
 | 3 | **Video Demonstration** | 1–3 minute walkthrough demonstrating the working prototype and its key features. | [Watch Demo Video](YOUR_VIDEO_LINK_HERE) |
 | 4 | **Presentation Deck (PDF)** | Maximum 4-slide presentation covering the core approach, system architecture, technology stack, and innovation pitch. | [View Presentation Deck](./docs-deliverables/pitch-deck) |

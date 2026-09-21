@@ -212,7 +212,7 @@ To understand the operational flow, consider Scenario 4: *"What is the meal per 
 1. **User Submission**: The query is submitted by Lightning McQueen (`EMPLOYEE` role).
 2. **Intent & Domain Routing**: The system classifies the domain as `FINANCE` and output format as `CHAT`.
 3. **Pre-Retrieval Security Clearance**: Chunks with `accessLevel: 'EMPLOYEE'` or `PUBLIC` are retained; restricted documents (e.g., executive discretionary funds) are excluded.
-4. **Retrieval**: The engine retrieves `KOHLER-FIN-POL-101-V3` (v3.1 Active, $75/day) and `KOHLER-FIN-POL-101-V2` (v2.0 Superseded, $50/day).
+4. **Retrieval**: The engine retrieves `KORA-FIN-POL-101-V3` (v3.1 Active, $75/day) and `KORA-FIN-POL-101-V2` (v2.0 Superseded, $50/day).
 5. **Conflict Detection**: The conflict detector identifies that Document V3 supersedes Document V2 and that the user's cited "$50" figure originates from the superseded policy.
 6. **Synthesis**: The agent generates an answer establishing that under active Policy v3.1 (effective Jan 1, 2026), the allowance is $75/day, while explicitly clarifying that the $50 rate was retired on Dec 31, 2025.
 7. **Verification & Confidence**: The verification engine confirms that "$75" matches Section 3.2, computes a 90% confidence score, and attaches verified citations.
@@ -373,7 +373,7 @@ Instead of blindly guessing an answer, the agent executes a ReAct sequence:
 | **Step 1** | **Thought (Reasoning)** | Deconstructs the query: *"The user wants tabular data from the employee directory checked against the travel policy, exported as Excel."* |
 | **Step 2** | **Action (Acting)** | Calls the `employee_directory_lookup` tool to fetch pending employee expense claims. |
 | **Step 3** | **Observation** | Observes 4 employee records (e.g., Lightning McQueen claimed **$68.50/day**; another claimed **$94.00/day**). |
-| **Step 4** | **Action (Acting)** | Queries the Knowledge Base for the travel policy (`KOHLER-FIN-POL-101-V3`) to find the daily meal cap (**$75.00**). |
+| **Step 4** | **Action (Acting)** | Queries the Knowledge Base for the travel policy (`KORA-FIN-POL-101-V3`) to find the daily meal cap (**$75.00**). |
 | **Step 5** | **Observation** | Compares each claim: **$68.50 ≤ $75.00 (Compliant); $94.00 > $75.00 (Violation flagged).** |
 | **Step 6** | **Action (Acting)** | Invokes the `excel_binary_builder` tool (SheetJS) to compile a genuine binary `.xlsx` workbook. |
 | **Step 7** | **Final Answer** | Returns the summary table, the download button, and cites **Policy Section 3.2**. |

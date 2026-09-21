@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { KOHLER_POLICIES, SYNTHETIC_DISCLAIMER } from '../data/syntheticKnowledgeBase';
+import { KORA_POLICIES, SYNTHETIC_DISCLAIMER } from '../data/syntheticKnowledgeBase';
 import { PolicyDomain, PolicyStatus } from '../types/enterprise';
 import { Search, Filter, Calendar, Shield, AlertTriangle, ChevronRight, FileText, Layers, CheckCircle2, History, Sparkles } from 'lucide-react';
 
@@ -9,7 +9,7 @@ export const KnowledgeBaseView: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [expandedDocId, setExpandedDocId] = useState<string | null>(null);
 
-  const filteredDocs = KOHLER_POLICIES.filter(doc => {
+  const filteredDocs = KORA_POLICIES.filter(doc => {
     if (selectedDomain !== 'ALL' && doc.domain !== selectedDomain) return false;
     if (selectedStatus !== 'ALL' && doc.status !== selectedStatus) return false;
     if (searchQuery.trim()) {
@@ -60,13 +60,13 @@ export const KnowledgeBaseView: React.FC = () => {
         </div>
         <div className="flex items-center space-x-2 text-xs font-mono">
           <span className="px-3 py-1.5 bg-stone-100 rounded-xl font-bold text-stone-800 border border-stone-200">
-            {KOHLER_POLICIES.length} Total Policies
+            {KORA_POLICIES.length} Total Policies
           </span>
           <span className="px-3 py-1.5 bg-emerald-50 text-emerald-900 rounded-xl font-bold border border-emerald-200">
-            {KOHLER_POLICIES.filter(d => d.status === 'ACTIVE').length} Active
+            {KORA_POLICIES.filter(d => d.status === 'ACTIVE').length} Active
           </span>
           <span className="px-3 py-1.5 bg-rose-50 text-rose-900 rounded-xl font-bold border border-rose-200">
-            {KOHLER_POLICIES.filter(d => d.status === 'SUPERSEDED').length} Superseded
+            {KORA_POLICIES.filter(d => d.status === 'SUPERSEDED').length} Superseded
           </span>
         </div>
       </div>

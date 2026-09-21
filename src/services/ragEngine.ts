@@ -1,4 +1,4 @@
-import { KOHLER_POLICIES, isRoleAuthorizedForChunk } from '../data/syntheticKnowledgeBase';
+import { KORA_POLICIES, isRoleAuthorizedForChunk } from '../data/syntheticKnowledgeBase';
 import { PolicyChunk, PolicyDocument, PolicyDomain, UserRole, Citation } from '../types/enterprise';
 
 export interface RetrievalResult {
@@ -74,7 +74,7 @@ export function retrieveGroundedKnowledge(
   const isHistoricalQuery = !!targetYear || /\b(historical|previous|past|superseded|prior)\b/i.test(query);
 
   // 1. Gather candidate documents matching identified domains (or all if broad)
-  const candidateDocs = KOHLER_POLICIES.filter(doc => 
+  const candidateDocs = KORA_POLICIES.filter(doc => 
     detectedDomains.includes(doc.domain) || detectedDomains.length === 0
   );
 
@@ -97,7 +97,7 @@ export function retrieveGroundedKnowledge(
   const scoredCandidates: ScoredCandidate[] = [];
 
   for (const chunk of allChunks) {
-    const parentDoc = KOHLER_POLICIES.find(d => d.id === chunk.documentId)!;
+    const parentDoc = KORA_POLICIES.find(d => d.id === chunk.documentId)!;
     const contentLower = chunk.content.toLowerCase();
     const sectionLower = chunk.section.toLowerCase();
     const isAuthorized = isRoleAuthorizedForChunk(userRole, chunk.accessLevel);
