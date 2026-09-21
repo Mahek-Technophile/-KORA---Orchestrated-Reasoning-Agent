@@ -1,6 +1,6 @@
 {
-  "name": "KOHLER Enterprise Intelligence Agent",
-  "description": "Permission-aware, evidence-grounded agentic assistant for KOHLER enterprise policies, cross-domain reasoning, compliance verification, and dynamic format synthesis.",
+  "name": "KORA - Orchestrated Reasoning Agent",
+  "description": "Permission-aware, evidence-grounded agentic assistant for enterprise policies, cross-domain reasoning, compliance verification, and dynamic format synthesis.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

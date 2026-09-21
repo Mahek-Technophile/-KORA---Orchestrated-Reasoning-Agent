@@ -184,7 +184,7 @@ export const BenchmarkView: React.FC<BenchmarkViewProps> = ({ onSelectTestCase }
             <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-stone-900 text-white uppercase tracking-wider">
               Prototype Verification
             </span>
-            <span className="text-xs text-stone-500 font-mono">Track 3: KOHLER Enterprise AI Agent</span>
+            <span className="text-xs text-stone-500 font-mono">Track 3: KORA - Orchestrated Reasoning Agent</span>
           </div>
           <h2 className="text-lg font-bold text-stone-900 tracking-tight mt-1">
             Empirical Test Suite & Evaluation Scorecard
@@ -328,7 +328,7 @@ export const BenchmarkView: React.FC<BenchmarkViewProps> = ({ onSelectTestCase }
               Estimated Manual Search Saved: ~1.8 hours / complex query
             </div>
             <p className="text-xs text-stone-600 mt-1">
-              <strong>Prototype estimate — not an empirical KOHLER measurement.</strong> Based on standard workflow modeling comparing manual cross-referencing of 5 departmental repositories (HR, Finance, Privacy, Legal, Customer Support) against unified sub-second agent retrieval.
+              <strong>Prototype estimate — not an empirical enterprise measurement.</strong> Based on standard workflow modeling comparing manual cross-referencing of 5 departmental repositories (HR, Finance, Privacy, Legal, Customer Support) against unified sub-second agent retrieval.
             </p>
           </div>
 

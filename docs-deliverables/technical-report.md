@@ -1,20 +1,20 @@
 
-# KOHLER Enterprise Intelligence Agent: Technical Report
+# KORA - Orchestrated Reasoning Agent: Technical Report
 ### Track 3: Unified Enterprise Conversational AI Agent Prototype
-**KOHLER-MITWPU AI Research Lab Case Study**
+**Enterprise AI Research Case Study**
 
 ---
 
 ## 1. Executive Summary & Objective
 
-In modern multinational manufacturing and industrial enterprises like KOHLER Co., corporate governance, human resources, financial guidelines, warranty obligations, and data compliance standards are dispersed across fragmented document repositories and department-specific intranets. When an employee or manager needs to make an informed operational decision such as procuring an external IoT cloud service or booking overseas travel they must manually locate, reconcile, and synthesize policies from up to five disparate administrative divisions.
+In modern multinational manufacturing and industrial enterprises, corporate governance, human resources, financial guidelines, warranty obligations, and data compliance standards are dispersed across fragmented document repositories and department-specific intranets. When an employee or manager needs to make an informed operational decision such as procuring an external IoT cloud service or booking overseas travel they must manually locate, reconcile, and synthesize policies from up to five disparate administrative divisions.
 
 This manual process introduces three severe enterprise risks:
 1. **Compliance Drift & Violations**: Users often reference outdated or superseded PDF files stored locally on their laptops (e.g., adhering to a 2024 per diem rate rather than a 2026 revision).
 2. **Access Control Leaks**: Traditional vector search RAG systems indiscriminately index all corporate documents, relying on prompt-level instructions to "not share confidential info," which is vulnerable to prompt injection and jailbreaking.
 3. **Cross-Domain Siloing**: Complex real-world decisions (such as sending smart-home telemetry data to a third-party vendor) require cross-referencing Privacy, Legal, and Warranty policies simultaneously a task where single-domain search engines fail.
 
-The **KOHLER Enterprise Intelligence Agent** resolves these challenges by introducing a unified, permission-aware, evidence-grounded agentic architecture capable of answering multi-domain questions with deterministic security gates, automated conflict resolution, and dynamic multi-format output generation.
+The **KORA - Orchestrated Reasoning Agent** resolves these challenges by introducing a unified, permission-aware, evidence-grounded agentic architecture capable of answering multi-domain questions with deterministic security gates, automated conflict resolution, and dynamic multi-format output generation.
 
 
 The system is a **hybrid neuro-symbolic agent** (often called an **Agentic RAG system with a deterministic governance layer**).
@@ -60,7 +60,7 @@ This hybrid division is the standard architectural design pattern for production
 
 
 ## 2. Architectural Blueprint
-<img width="1445" height="1020" alt="KOHLER Enterprise Intelligence Agent Architecture" src="https://github.com/user-attachments/assets/5d17def4-1467-457d-b2ed-03cd93a2009b" />
+<img width="1445" height="1020" alt="KORA - Orchestrated Reasoning Agent Architecture" src="https://github.com/user-attachments/assets/5d17def4-1467-457d-b2ed-03cd93a2009b" />
 
 ```mermaid
 flowchart TD
@@ -167,7 +167,7 @@ class node_browser_user,node_gemini_api toneIndigo
 Enterprise users require outputs formatted for their specific workflows: developers need structured JSON, business analysts need binary spreadsheets, and department heads need email drafts. The format detection engine analyzes lexical cues (e.g., "json", "excel", "spreadsheet", "draft email", "xml") and extracts requested schema properties from user prompts.
 
 ### 3.2. Pre-Retrieval Deterministic RBAC Gate (`src/services/ragEngine.ts`)
-A critical vulnerability in standard RAG implementations is passing all top-$k$ semantic search results into the prompt context and trusting the model to enforce confidentiality. The KOHLER agent uses a **deterministic pre-retrieval filter**:
+A critical vulnerability in standard RAG implementations is passing all top-$k$ semantic search results into the prompt context and trusting the model to enforce confidentiality. The KORA agent uses a **deterministic pre-retrieval filter**:
 ```typescript
 const accessibleChunks = allChunks.filter(chunk => 
   isRoleAuthorizedForChunk(userRole, chunk.accessLevel)
@@ -264,7 +264,7 @@ To maintain prototype stability, the solution avoids unnecessary operational ove
 
 ## 8. Conclusion
 
-The KOHLER Enterprise Intelligence Agent demonstrates that enterprise readiness in generative AI is not achieved through larger foundation models alone, but through **disciplined systems engineering**: deterministic security perimeters, explicit policy conflict graphs, transparent confidence heuristics, and human-in-the-loop oversight. This prototype provides an explainable, technically credible, and submittable blueprint for enterprise adoption.
+The KORA - Orchestrated Reasoning Agent demonstrates that enterprise readiness in generative AI is not achieved through larger foundation models alone, but through **disciplined systems engineering**: deterministic security perimeters, explicit policy conflict graphs, transparent confidence heuristics, and human-in-the-loop oversight. This prototype provides an explainable, technically credible, and submittable blueprint for enterprise adoption.
 
 
 # ReAct Agent: Core Concept and Enterprise Implementation
@@ -360,7 +360,7 @@ This loop can execute multiple times until the agent has gathered enough informa
 
 ---
 
-## 2. Concrete Example: How ReAct Works in the KOHLER Agent
+## 2. Concrete Example: How ReAct Works in the KORA Agent
 
 Consider a query like:
 
@@ -776,7 +776,7 @@ Final Answer
 
 ### Enterprise ReAct Agent
 
-The KOHLER Agent extends this concept by combining ReAct with:
+The KORA Agent extends this concept by combining ReAct with:
 
 ```text
                 ┌──────────────────────┐

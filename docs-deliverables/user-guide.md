@@ -1,12 +1,12 @@
-# KOHLER Enterprise Intelligence Agent: User Guide
+# KORA - Orchestrated Reasoning Agent: User Guide
 ### Track 3: Unified Enterprise Conversational AI Agent Prototype
-**KOHLER-MITWPU AI Research Lab Case Study**
+**Enterprise AI Research Case Study**
 
 ---
 
 ## 1. Quick Start & Navigation
 
-The **KOHLER Enterprise Intelligence Agent** web application is organized into five primary views accessible via the top navigation bar:
+The **KORA - Orchestrated Reasoning Agent** web application is organized into five primary views accessible via the top navigation bar:
 
 1. **Interactive Copilot** (`ChatView`): Primary conversational workspace for submitting policy inquiries, selecting dynamic output formats (Standard Chat, Validated JSON, Excel `.xlsx`, Email), and interacting with generated artifacts.
 2. **ReAct Agent Trace** (`AgentTraceView`): Real-time inspection of the internal agent execution lifecycle (Understanding $\rightarrow$ Domain Routing $\rightarrow$ Security Filter $\rightarrow$ Retrieval $\rightarrow$ Tool Execution $\rightarrow$ Conflict Check $\rightarrow$ Synthesis $\rightarrow$ Verification $\rightarrow$ HITL Gate).

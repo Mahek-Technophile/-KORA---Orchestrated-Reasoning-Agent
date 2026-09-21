@@ -98,10 +98,10 @@ export const ChatView: React.FC<ChatViewProps> = ({
                 K
               </div>
               <h2 className="text-lg font-extrabold text-stone-950 tracking-tight">
-                KOHLER Enterprise Policy Intelligence
+                KORA Policy Intelligence
               </h2>
               <p className="text-xs text-stone-600 mt-1 max-w-lg mx-auto leading-relaxed">
-                Permission-governed neuro-symbolic assistant grounding inquiries in authoritative Kohler policies across HR, Finance, Customer Care, Privacy, and Legal.
+                Permission-governed neuro-symbolic assistant grounding inquiries in authoritative enterprise policies across HR, Finance, Customer Care, Privacy, and Legal.
               </p>
 
               {/* Guarantees Badges */}
@@ -229,7 +229,7 @@ export const ChatView: React.FC<ChatViewProps> = ({
               {/* Sender Label */}
               <div className="flex items-center space-x-2 text-[10px] text-stone-500 font-medium mb-1.5 px-1.5">
                 <span className="font-semibold text-stone-700">
-                  {msg.sender === 'USER' ? user.name : 'KOHLER AI Agent'}
+                  {msg.sender === 'USER' ? user.name : 'KORA AI Agent'}
                 </span>
                 <span>•</span>
                 <span className="font-mono text-stone-400">
@@ -339,7 +339,7 @@ export const ChatView: React.FC<ChatViewProps> = ({
                               </div>
                               <div>
                                 <div className="font-bold text-emerald-950 text-xs">
-                                  {msg.outputData.excelFileName || "KOHLER_Audit.xlsx"}
+                                  {msg.outputData.excelFileName || "KORA_Audit.xlsx"}
                                 </div>
                                 <div className="text-[10px] text-emerald-800">
                                   {msg.outputData.tableRows?.length || 0} Records • Client-Side Generated Spreadsheet
@@ -348,7 +348,7 @@ export const ChatView: React.FC<ChatViewProps> = ({
                             </div>
                             <a
                               href={msg.outputData.excelDownloadUrl}
-                              download={msg.outputData.excelFileName || "KOHLER_Audit.xlsx"}
+                              download={msg.outputData.excelFileName || "KORA_Audit.xlsx"}
                               className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-xs shadow-xs transition-colors"
                             >
                               <Download className="w-3.5 h-3.5" />

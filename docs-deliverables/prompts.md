@@ -1,13 +1,13 @@
 # Prompts Documentation
-### Track 3: KOHLER Unified Enterprise Conversational AI Agent
-**KOHLER-MITWPU AI Research Lab Case Study**
+### Track 3: KORA - Orchestrated Reasoning Agent
+**Enterprise AI Research Case Study**
 *A comprehensive specification of all AI prompts, system instructions, guardrails, and development workflows committed to the repository.*
 
 ---
 
 ## 1. Executive Overview & Prompt Engineering Framework
 
-The **KOHLER Enterprise Intelligence Agent** employs a **Neuro-Symbolic, Multi-Stage ReAct Prompt Architecture**. Rather than attempting to handle access control, data retrieval, arithmetic calculations, and text generation in a single monolithic prompt, the system breaks governance reasoning into modular, auditable stages:
+The **KORA - Orchestrated Reasoning Agent** employs a **Neuro-Symbolic, Multi-Stage ReAct Prompt Architecture**. Rather than attempting to handle access control, data retrieval, arithmetic calculations, and text generation in a single monolithic prompt, the system breaks governance reasoning into modular, auditable stages:
 
 ```
 +---------------------------------------------------------------------------------------------------+
@@ -90,7 +90,7 @@ This promt was generated from ChatGPT and pasted into Google AI studio And FreeB
   
   Build:
   
-  ## "KOHLER Enterprise Intelligence Agent"
+  ## "KORA - Orchestrated Reasoning Agent"
   
   A permission-aware, evidence-grounded, agentic enterprise assistant that can:
   
@@ -662,7 +662,7 @@ This promt was generated from ChatGPT and pasted into Google AI studio And FreeB
   Main screen:
   ```
   ┌─────────────────────────────────────────────┐
-  │ KOHLER Enterprise Intelligence │
+  │ KORA - Orchestrated Reasoning Agent │
   │ │
   │ User: Employee ▼ Role: Employee │
   ├─────────────────────────────────────────────┤

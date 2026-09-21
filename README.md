@@ -1,29 +1,29 @@
-# KOHLER Enterprise Intelligence Agent
+# KORA - Orchestrated Reasoning Agent
 ### Track 3: Unified Enterprise Conversational AI Agent Prototype
-**KOHLER-MITWPU AI Research Lab Case Study**
+**Enterprise AI Research Case Study**
 
 ---
 ## Submission Deliverables
 
 | # | Deliverable | Description | Link |
 |---|---|---|---|
-| 1 |**Working Model** | Source code, configuration, instructions, and scripts required to run the functional prototype. | [prototype](https://kohler-enterprise-intelligence.vercel.app/) |
-| 2 |**Video Demonstration** | 1–3 minute walkthrough demonstrating the working prototype and its key features. | [Watch Demo Video](https://youtu.be/9DIm3Xzxyko) | 
-| 3 |**Presentation Deck (PDF)** | Maximum 4-slide presentation covering the core approach, system architecture, technology stack, and innovation pitch. | [View Presentation Deck](./docs-deliverables/pitch-deck) |
-| 4 |**Prompts Documentation (PDF)** | Comprehensive documentation containing all AI prompts, system instructions, agent workflows, and prompt engineering used in the solution. | [View Prompts Documentation](docs-deliverables/prompts.md) |
+| 1 | **Working Model** | Source code, configuration, instructions, and scripts required to run the functional prototype. | [prototype](https://kohler-enterprise-intelligence.vercel.app/) |
+| 2 | **Prompts Documentation (PDF)** | Comprehensive documentation containing all AI prompts, system instructions, agent workflows, and prompt engineering used in the solution. | [View Prompts Documentation](docs-deliverables/prompts.md) |
+| 3 | **Video Demonstration** | 1–3 minute walkthrough demonstrating the working prototype and its key features. | [Watch Demo Video](YOUR_VIDEO_LINK_HERE) |
+| 4 | **Presentation Deck (PDF)** | Maximum 4-slide presentation covering the core approach, system architecture, technology stack, and innovation pitch. | [View Presentation Deck](./docs-deliverables/pitch-deck) |
 
 
 ## 1. Executive Summary & Architecture
 
-The **KOHLER Enterprise Intelligence Agent** is an enterprise-grade AI copilot prototype designed to resolve complex cross-departmental policy inquiries across five organizational domains:
+The **KORA - Orchestrated Reasoning Agent** is an enterprise-grade AI copilot prototype designed to resolve complex cross-departmental policy inquiries across five organizational domains:
 1. **HR Policies** (Paid time off, hybrid work guidelines, executive severance)
 2. **Financial Guidelines** (Travel per diems, flight cabin class rules, discretionary hospitality budgets)
-3. **Customer Support** (Smart toilet warranties, defective parts replacement workflows)
+3. **Customer Support** (Smart fixture warranties, defective parts replacement workflows)
 4. **Data Privacy** (Customer PII protection, IoT telemetry safeguards, DPIA mandates)
 5. **Legal & Compliance** (Vendor master agreements, DPA requirements, whistleblower hotline)
 
 ### Core Architectural Pillars
-<img width="1445" height="1020" alt="KOHLER Enterprise Intelligence Agent Architecture" src="https://github.com/user-attachments/assets/e5d0dd57-0103-4d55-be58-a7fb09d54e38" />
+<img width="1445" height="1020" alt="KORA - Orchestrated Reasoning Agent Architecture" src="https://github.com/user-attachments/assets/e5d0dd57-0103-4d55-be58-a7fb09d54e38" />
 
 ```mermaid
 flowchart TD
@@ -148,7 +148,7 @@ class node_browser_user,node_gemini_api toneIndigo
                                          v
 +-----------------------------------------------------------------------------------+
 |                        SYNTHETIC REPOSITORY & TOOL LAYER                          |
-|  - Synthetic Kohler Policy Documents (5 domains, versioning, validity dates)       |
+|  - Synthetic Enterprise Policy Documents (5 domains, versioning, validity dates)   |
 |  - Synthetic Employee Directory (Lightning McQueen, Sarah Jenkins, Elena Vance)   |
 |  - In-Memory Regulatory Audit Log & Empirical Benchmark Runner (8 Scenarios)      |
 +-----------------------------------------------------------------------------------+
@@ -200,7 +200,7 @@ The prototype includes an automated benchmark runner that executes all 8 case st
 
 ### 2. Estimated Metrics (Explicitly Labeled Prototype Estimates)
 * **Operational Search Reduction**: ~1.8 hours per complex cross-departmental query.
-  * *Disclaimer*: **Prototype estimate — not an empirical KOHLER measurement.** Based on manual workflow modeling comparing manual cross-referencing of 5 departmental repositories (HR, Finance, Privacy, Legal, Customer Support) against unified agent retrieval.
+  * *Disclaimer*: **Prototype estimate — not an empirical enterprise measurement.** Based on manual workflow modeling comparing manual cross-referencing of 5 departmental repositories (HR, Finance, Privacy, Legal, Customer Support) against unified agent retrieval.
 
 ### 3. Unmeasured / Production-Only Metrics
 * **Statistical Hallucination Rate at Enterprise Scale**: Labeled as **N/A — Not measured**. Production-scale hallucination rates require longitudinal human auditing across thousands of real production documents.
@@ -212,7 +212,7 @@ The prototype includes an automated benchmark runner that executes all 8 case st
 
 * **Frontend**: React 19, TypeScript, Tailwind CSS, Lucide React Icons, SheetJS (`xlsx`)
 * **Backend**: Express (Node.js), Vite Development Middleware, `@google/genai` (Gemini model integration with deterministic fallback)
-* **Storage & Telemetry**: In-memory compliance audit service, synthetic Kohler policy repository across 5 domains.
+* **Storage & Telemetry**: In-memory compliance audit service, synthetic enterprise policy repository across 5 domains.
 * **Architecture Style**: Client-side single-page copilot with server-side proxy capabilities, prioritizing working code, explainability, and technical defensibility.
 
 ---
@@ -239,4 +239,4 @@ The prototype includes an automated benchmark runner that executes all 8 case st
 
 ## 7. Synthetic Data Notice
 
-> **Synthetic demonstration data prepared for KOHLER-MITWPU AI Research Lab Case Study. Not official KOHLER corporate documentation.** All policy numbers, dollar caps, approval thresholds, and employee names (e.g., Lightning McQueen) are fictional assets constructed specifically to demonstrate governance reasoning.
+> **Synthetic demonstration data prepared for Enterprise AI Research Case Study. Not official corporate documentation.** All policy numbers, dollar caps, approval thresholds, and employee names (e.g., Lightning McQueen) are fictional assets constructed specifically to demonstrate governance reasoning.

@@ -25,20 +25,20 @@ export function buildDynamicOutput(
     case 'JSON': {
       const jsonPayload = {
         metadata: {
-          generator: "KOHLER Enterprise Intelligence Agent",
+          generator: "KORA - Orchestrated Reasoning Agent",
           timestamp: new Date().toISOString(),
           query: query,
           status: "SUCCESS"
         },
         policy_summary: {
-          governing_document: citations[0]?.title || "Kohler Travel & Business Expense Policy",
+          governing_document: citations[0]?.title || "Travel & Business Expense Policy",
           document_id: citations[0]?.docId || "KOHLER-FIN-POL-101-V3",
           version: citations[0]?.version || "v3.1",
           effective_date: citations[0]?.effectiveDate || "2026-01-01",
           authority: citations[0]?.authority || "VP_LEVEL"
         },
         regulations: {
-          eligibility: "All active regular full-time Kohler associates traveling on authorized company business.",
+          eligibility: "All active regular full-time associates traveling on authorized company business.",
           per_diem_limits: {
             domestic_daily_cap_usd: 75.00,
             breakdown: { breakfast_usd: 15.00, lunch_usd: 20.00, dinner_usd: 40.00 },
@@ -75,9 +75,9 @@ export function buildDynamicOutput(
 
     case 'XML': {
       const xmlPayload = `<?xml version="1.0" encoding="UTF-8"?>
-<kohler_enterprise_intelligence version="1.0">
+<enterprise_intelligence version="1.0">
   <metadata>
-    <agent>KOHLER Enterprise Intelligence Agent</agent>
+    <agent>KORA - Orchestrated Reasoning Agent</agent>
     <timestamp>${new Date().toISOString()}</timestamp>
     <status>VERIFIED</status>
   </metadata>
@@ -100,7 +100,7 @@ export function buildDynamicOutput(
   <supporting_citations count="${citations.length}">
     ${citations.map(c => `<citation doc_id="${c.docId}" section="${c.section}" version="${c.version}"/>`).join('\n    ')}
   </supporting_citations>
-</kohler_enterprise_intelligence>`;
+</enterprise_intelligence>`;
 
       return {
         format: 'XML',
@@ -138,7 +138,7 @@ export function buildDynamicOutput(
       // Create workbook and worksheet
       const wb = XLSX.utils.book_new();
       const wsData = [
-        ["KOHLER CO. — ENTERPRISE EXPENSE REIMBURSEMENT AUDIT REPORT"],
+        ["KORA — ENTERPRISE EXPENSE REIMBURSEMENT AUDIT REPORT"],
         [`Generated: ${new Date().toLocaleDateString()} | Governing Policy: KOHLER-FIN-POL-101-V3 (v3.1)`],
         [],
         tableHeaders,
@@ -165,7 +165,7 @@ export function buildDynamicOutput(
       // Generate base64 or blob URL
       const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'base64' });
       const excelDownloadUrl = `data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,${excelBuffer}`;
-      const excelFileName = `KOHLER_Travel_Reimbursement_Audit_${new Date().toISOString().split('T')[0]}.xlsx`;
+      const excelFileName = `KORA_Travel_Reimbursement_Audit_${new Date().toISOString().split('T')[0]}.xlsx`;
 
       return {
         format: 'EXCEL',
@@ -226,8 +226,8 @@ Department Director endorsement has been logged in Concur under pre-approval ID 
           to: "hr.operations@kohler.com",
           cc: "lightning.mcqueen@kohler.com",
           subject: "Inquiry Regarding Corporate Policy Interpretation & Guidance",
-          salutation: "Dear Kohler People Operations Team,",
-          body: `I am reaching out to clarify the official operational interpretation of company policy regarding the following inquiry:\n\n"${query}"\n\nBased on preliminary analysis from the Kohler Enterprise Intelligence Agent, the governing policy is referenced below. Could you please confirm if any additional department-specific exceptions apply to our business unit?`,
+          salutation: "Dear People Operations Team,",
+          body: `I am reaching out to clarify the official operational interpretation of company policy regarding the following inquiry:\n\n"${query}"\n\nBased on preliminary analysis from KORA (Orchestrated Reasoning Agent), the governing policy is referenced below. Could you please confirm if any additional department-specific exceptions apply to our business unit?`,
           policyReferences: citations.map(c => `${c.docId} (${c.title}, ${c.version})`),
           actionItems: [
             "HR review and policy clarification confirmation",

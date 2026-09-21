@@ -1,12 +1,12 @@
-# KOHLER Enterprise Intelligence Agent: Submission Readiness Checklist
+# KORA - Orchestrated Reasoning Agent: Submission Readiness Checklist
 ### Track 3: Unified Enterprise Conversational AI Agent Prototype
-**KOHLER-MITWPU AI Research Lab Case Study**
+**Enterprise AI Research Case Study**
 
 ---
 
 ## 1. Executive Status: READY FOR SUBMISSION
 
-* **Evaluation Track**: Track 3: KOHLER Unified Enterprise AI Agent
+* **Evaluation Track**: Track 3: KORA - Orchestrated Reasoning Agent
 * **Prototype State**: Fully functional, hardened, and data-driven.
 * **Integrity Audit**: Verified. All hardcoded metrics replaced with live measured runtime telemetry; synthetic data labeled.
 
@@ -46,4 +46,4 @@
 
 ## 4. Verification Sign-Off
 
-The **KOHLER Enterprise Intelligence Agent** prototype satisfies all functional, architectural, and presentation criteria established for Track 3 of the KOHLER-MITWPU AI Research Lab Case Study. The solution is fully operational, stable, and ready for competition presentation.
+The **KORA - Orchestrated Reasoning Agent** prototype satisfies all functional, architectural, and presentation criteria established for Track 3 of the Enterprise AI Research Case Study. The solution is fully operational, stable, and ready for competition presentation.

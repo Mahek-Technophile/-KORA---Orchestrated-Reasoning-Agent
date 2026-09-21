@@ -52,7 +52,7 @@ export const KnowledgeBaseView: React.FC = () => {
             </span>
           </div>
           <h2 className="text-xl font-extrabold text-stone-950 tracking-tight mt-0.5">
-            KOHLER Authoritative Policy Repository
+            Authoritative Enterprise Policy Repository
           </h2>
           <p className="text-xs text-stone-500 mt-1">
             Deterministic index with strict version controls, temporal validity windows, and pre-retrieval access tags.

@@ -99,7 +99,7 @@ export const EvidenceDrawer: React.FC<EvidenceDrawerProps> = ({ citation, onClos
             <span>Deterministic Grounding Verified</span>
           </div>
           <p className="text-[11px] text-emerald-800 leading-normal">
-            Directly retrieved from the Kohler index. Mathematical verification confirms absence of hallucinated policy bounds.
+            Directly retrieved from the enterprise policy index. Mathematical verification confirms absence of hallucinated policy bounds.
           </p>
         </div>
       </div>

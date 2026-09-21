@@ -43,9 +43,9 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <span className="font-extrabold text-stone-950 tracking-wider text-base uppercase">KOHLER</span>
+                <span className="font-extrabold text-stone-950 tracking-wider text-base uppercase">KORA</span>
                 <span className="text-stone-300 font-light">/</span>
-                <span className="text-stone-800 text-xs sm:text-sm font-semibold tracking-tight">Enterprise Intelligence</span>
+                <span className="text-stone-800 text-xs sm:text-sm font-semibold tracking-tight">Orchestrated Reasoning Agent</span>
                 <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-900 border border-amber-200">
                   Track 3
                 </span>

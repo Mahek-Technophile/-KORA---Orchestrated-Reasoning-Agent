@@ -25,7 +25,7 @@ if (process.env.GEMINI_API_KEY) {
 app.get("/api/health", (_req, res) => {
   res.json({
     status: "ok",
-    service: "KOHLER Enterprise Intelligence Agent",
+    service: "KORA - Orchestrated Reasoning Agent",
     geminiConfigured: !!process.env.GEMINI_API_KEY,
     timestamp: new Date().toISOString()
   });
@@ -50,7 +50,7 @@ app.post("/api/gemini/generate", async (req, res) => {
       model: "gemini-3.8-flash",
       contents: prompt,
       config: {
-        systemInstruction: "You are the official KOHLER Enterprise Intelligence Agent. Answer clearly, professionally, and strictly grounded in the provided company policies with explicit citations."
+        systemInstruction: "You are the official KORA (Orchestrated Reasoning Agent). Answer clearly, professionally, and strictly grounded in the provided company policies with explicit citations."
       }
     });
 
@@ -79,7 +79,7 @@ async function startServer() {
   }
 
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`KOHLER Enterprise Intelligence Agent running at http://0.0.0.0:${PORT}`);
+    console.log(`KORA - Orchestrated Reasoning Agent running at http://0.0.0.0:${PORT}`);
   });
 }
 
