@@ -122,7 +122,20 @@ class node_workflow_planner,node_retrieval_rbac,node_conflict_analyzer,node_conf
 class node_policy_repository,node_employee_directory,node_benchmark_catalog toneRose
 class node_browser_user,node_gemini_api toneIndigo
 ```
-
+```
+                 KORA
+                  │
+        ┌─────────┴─────────┐
+        │                   │
+   NEURAL PART         SYMBOLIC PART
+        │                   │
+     Gemini              RBAC rules
+     LLM reasoning       Policy versions
+     Language            Conflict detection
+     synthesis           Effective dates
+                         Confidence formula
+                         HITL rules
+```
 ```
 +-----------------------------------------------------------------------------------+
 |                           USER / BROWSER INTERACTION LAYER                        |
