@@ -197,6 +197,91 @@ $$\text{Confidence} = 0.30 \cdot R + 0.25 \cdot A + 0.20 \cdot T + 0.15 \cdot C 
 * **$G$ (Claim Grounding)**: Verification pass rate of extracted numerical clauses.
 
 Users can click the Confidence badge in the UI to inspect the exact mathematical contributions of each factor.
+# KORA Enterprise Verification & Confidence Scoring Model
+
+## 1. Executive Summary
+
+In enterprise policy automation, LLM generation quality cannot be measured using raw token log-probabilities (softmax likelihood). A neural model can generate a hallucinated or legally obsolete regulation with high internal token probability simply because the prose is fluent.
+
+To solve this, **KORA (Orchestrated Reasoning Agent)** implements an external, deterministic **neuro-symbolic verification engine** (`src/services/verificationEngine.ts`). This engine evaluates retrieved evidence against five objective corporate governance signals, producing an auditable confidence score between **0 and 100**.
+
+---
+
+## 2. Mathematical Formulation
+
+The composite confidence score is defined by the weighted linear combination:
+
+$$\text{Confidence Score} = (R \times 0.30) + (A \times 0.25) + (T \times 0.20) + (C \times 0.15) + (G \times 0.10)$$
+
+Where:
+* **$R$**: Retrieval Relevance Score ($0 \le R \le 100$)
+* **$A$**: Source Authority Level Score ($0 \le A \le 100$)
+* **$T$**: Temporal Validity & Lifecycle Score ($0 \le T \le 100$)
+* **$C$**: Conflict & Contradiction Resolution Score ($0 \le C \le 100$)
+* **$G$**: Quantitative Fact Grounding Rate ($0 \le G \le 100$)
+
+---
+
+## 3. Metric Definitions & Scoring Logic
+
+| Factor | Weight | Variable | Concrete Evaluation Criteria | Operational Objective |
+| :--- | :---: | :---: | :--- | :--- |
+| **Retrieval Relevance** | **30%** | $R$ | Normalized average keyword and semantic density score across all citations passed to the prompt ($0–100$). | Ensures retrieved policy clauses directly address the core terms in the user's inquiry. |
+| **Governing Authority** | **25%** | $A$ | Highest governing authorization tier among citations:<br>• **BOARD**: $100$<br>• **VP_LEVEL**: $95$<br>• **DIRECTOR**: $80$<br>• **DEPARTMENT**: $65$ | Prioritizes corporate-wide executive mandates over local departmental memos. |
+| **Temporal Validity** | **20%** | $T$ | Document lifecycle status evaluation:<br>• **ACTIVE** (Effective date $\le \text{today} < \text{expiry}$): $100$<br>• **SUPERSEDED** (Replaced by newer revision): $45$ | Penalizes reliance on outdated regulations (e.g., 2024 terms in a 2026 audit). |
+| **Conflict Status** | **15%** | $C$ | Lineage and supersession check:<br>• **No Conflict Identified**: $100$<br>• **Conflict Identified & Formally Resolved**: $90$<br>• **Unresolved Policy Contradiction**: $30$ | Flags unresolvable discrepancies between overlapping enterprise documents. |
+| **Quantitative Grounding** | **10%** | $G$ | $\left(\frac{\text{Extracted Numbers Matched in Source}}{\text{Total Numbers Generated in Answer}}\right) \times 100$<br>*(Defaults to $95$ if no numbers appear in synthesized text)* | Prevents hallucination of numerical terms (dollar caps, day limits, percentages). |
+
+---
+
+## 4. Confidence Tier Stratification & System Behavior
+
+| Confidence Range | Tier | System Interpretation | Workflow Action |
+| :---: | :---: | :--- | :--- |
+| **80 – 100** | **HIGH** | Full groundedness across active, high-authority documentation with verified quantitative metrics. | Answer is accepted; direct execution allowed; green verification badge displayed. |
+| **55 – 79** | **MEDIUM** | Grounded in policy, but with minor operational caveats (e.g., cross-departmental coordination needed or secondary historical citations referenced). | User is alerted with contextual notes; escalation path surfaced. |
+| **< 55** | **LOW** | Low relevance, unresolvable policy conflict, superseded documentation, or RBAC clearance restriction. | Mandatory human verification advisory; blocks automated external side effects. |
+
+*Note: If pre-retrieval RBAC filters drop all candidates (zero accessible citations), the score defaults to a deterministic floor of **15** (LOW).*
+
+---
+```
+┌─────────────────────────────────────────┐
+                  │             User Query Input            │
+                  └────────────────────┬────────────────────┘
+                                       │
+                                       ▼
+                  ┌─────────────────────────────────────────┐
+                  │    Deterministic RBAC Security Gate     │
+                  └────────────────────┬────────────────────┘
+                                       │
+                                       ▼
+                  ┌─────────────────────────────────────────┐
+                  │   Domain-Aware Policy Retrieval (RAG)   │
+                  └────────────────────┬────────────────────┘
+                                       │
+               ┌───────────────────────┴───────────────────────┐
+               ▼                                               ▼
+ ┌───────────────────────────┐                   ┌───────────────────────────┐
+ │  Probabilistic Synthesis  │                   │  Deterministic Verifier   │
+ │      (Gemini / LLM)       │                   │    (verificationEngine)   │
+ └─────────────┬─────────────┘                   └─────────────┬─────────────┘
+               │                                               │
+               │ • Language fluency                            │ • Relevance (30%)
+               │ • Contextual summary                          │ • Authority (25%)
+               │ • Format styling                              │ • Validity (20%)
+               │                                               │ • Lineage (15%)
+               │                                               │ • Grounding (10%)
+               │                                               │
+               └───────────────────────┬───────────────────────┘
+                                       ▼
+                  ┌─────────────────────────────────────────┐
+                  │    Auditable Response + Provenance      │
+                  └─────────────────────────────────────────┘
+```
+
+
+## 5. Architectural Rationale: How the Model Was Developed
 
 ### 3.6. Dynamic Output Generators (`src/services/outputFormatters.ts`)
 * **Binary Excel (`.xlsx`)**: Uses SheetJS to build multi-column workbooks with styled headers, currency formatting, and automated browser downloads.
